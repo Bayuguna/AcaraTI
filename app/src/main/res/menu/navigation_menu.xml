@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:title="Kegiatan"
+            android:id="@+id/kegiatan"
+            android:icon="@drawable/hexagon"
+            />
+
+        <item
+            android:title="Pengumuman"
+            android:id="@+id/pengumuman"
+            android:icon="@drawable/pemberitahuan"/>
+
+        <item
+            android:title="Riwayat Kepanitiaan"
+            android:id="@+id/riwayat_kepanitiaan"
+            android:icon="@drawable/history"/>
+    </group>
+
+    <item android:title="subheader">
+        <menu>
+            <item
+                android:title="Settings"
+                android:id="@+id/settings"
+                android:icon="@drawable/settings"/>
+            <item
+                android:title="About"
+                android:id="@+id/about"
+                android:icon="@drawable/about"
+                />
+            <item
+                android:title="Logout"
+                android:id="@+id/logout"
+                android:icon="@drawable/power"/>
+        </menu>
+    </item>
+
+
+</menu>
