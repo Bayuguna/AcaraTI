@@ -5,6 +5,12 @@ import com.google.gson.annotations.SerializedName;
 //@Generated("com.robohorse.robopojogenerator")
 public class User{
 
+	@SerializedName("nim")
+	private String nim;
+
+	@SerializedName("telp")
+	private String telp;
+
 	@SerializedName("updated_at")
 	private String updatedAt;
 
@@ -19,6 +25,28 @@ public class User{
 
 	@SerializedName("email")
 	private String email;
+
+	@SerializedName("alamat")
+	private String alamat;
+
+	@SerializedName("username")
+	private String username;
+
+	public void setNim(String nim){
+		this.nim = nim;
+	}
+
+	public String getNim(){
+		return nim;
+	}
+
+	public void setTelp(String telp){
+		this.telp = telp;
+	}
+
+	public String getTelp(){
+		return telp;
+	}
 
 	public void setUpdatedAt(String updatedAt){
 		this.updatedAt = updatedAt;
@@ -60,15 +88,35 @@ public class User{
 		return email;
 	}
 
+	public void setAlamat(String alamat){
+		this.alamat = alamat;
+	}
+
+	public String getAlamat(){
+		return alamat;
+	}
+
+	public void setUsername(String username){
+		this.username = username;
+	}
+
+	public String getUsername(){
+		return username;
+	}
+
 	@Override
  	public String toString(){
 		return 
 			"User{" + 
-			"updated_at = '" + updatedAt + '\'' + 
+			"nim = '" + nim + '\'' + 
+			",telp = '" + telp + '\'' + 
+			",updated_at = '" + updatedAt + '\'' + 
 			",name = '" + name + '\'' + 
 			",created_at = '" + createdAt + '\'' + 
 			",id = '" + id + '\'' + 
 			",email = '" + email + '\'' + 
+			",alamat = '" + alamat + '\'' + 
+			",username = '" + username + '\'' + 
 			"}";
 		}
 }

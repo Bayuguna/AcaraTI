@@ -1,5 +1,6 @@
 package com.example.bayuguna.progmob;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -21,6 +22,7 @@ public class SignUpActivity extends AppCompatActivity {
     ApiService service;
     Call<User> call;
     private static final String TAG = "SignUpActivity";
+//    TokenManager tokenManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,27 +47,39 @@ public class SignUpActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        String nim = insert_nim.getText().toString();
                         String name = insert_nama.getText().toString();
                         String email = insert_gmail.getText().toString();
+                        String telp = insert_telp.getText().toString();
+                        String alamat = insert_alamat.getText().toString();
+                        String username = insert_username.getText().toString();
                         String password = insert_password.getText().toString();
 
-                        call = service.register(name,email,password);
+                        call = service.register(nim,name,email,telp,alamat,username,password);
                         call.enqueue(new retrofit2.Callback<User>() {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
 
-                                if (response.isSuccessful()){
-                                    Toast.makeText(SignUpActivity.this, "You are Registered",Toast.LENGTH_LONG).show();
-
+                                if (insert_nim.getText().toString().isEmpty() && insert_nama.getText().toString().isEmpty() && insert_username.getText().toString().isEmpty() && insert_password.getText().toString().isEmpty()){
+                                    Toast.makeText(SignUpActivity.this, "Isi dulu fieldnya",Toast.LENGTH_LONG).show();
                                 }else {
-                                    
+                                    if (response.isSuccessful()){
+                                        Toast.makeText(SignUpActivity.this, "You are Registered",Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                                        startActivity(intent);
+
+                                    }else {
+                                        Toast.makeText(SignUpActivity.this, "Tidak semudah itu ferguso",Toast.LENGTH_LONG).show();
+                                    }
+
                                 }
+
                             }
 
                             @Override
                             public void onFailure(Call<User> call, Throwable t) {
-                                Log.w(TAG, "onFailure: " + t.getMessage() );;
+                                Log.w(TAG, "onFailure: " + t.getMessage() );
+                                Toast.makeText(SignUpActivity.this, "Gagal Register",Toast.LENGTH_LONG).show();
                             }
                         });
 
@@ -86,7 +100,7 @@ public class SignUpActivity extends AppCompatActivity {
 //                            else
 //                                Toast.makeText(SignUpActivity.this, "You Not Registered",Toast.LENGTH_LONG).show();
 //
-//                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+//                            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
 //
 //                            startActivity(intent);
 //                        }

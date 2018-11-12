@@ -3,8 +3,6 @@ package com.example.bayuguna.progmob;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -28,23 +26,23 @@ public class DasboardActivity extends AppCompatActivity{
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-        if (id == R.id.settings){
-
-            Toast.makeText(getApplicationContext(), "Settings is selected", Toast.LENGTH_SHORT).show();
-
-        }else if(id == R.id.about){
-
-            Toast.makeText(getApplicationContext(), "About is selected", Toast.LENGTH_SHORT).show();
-
-        }else if (id == R.id.logout){
-
-            Toast.makeText(getApplicationContext(), "Logout is selected", Toast.LENGTH_SHORT).show();
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        int id = item.getItemId();
+//        if (id == R.id.settings){
+//
+//            Toast.makeText(getApplicationContext(), "Settings is selected", Toast.LENGTH_SHORT).show();
+//
+//        }else if(id == R.id.about){
+//
+//            Toast.makeText(getApplicationContext(), "About is selected", Toast.LENGTH_SHORT).show();
+//
+//        }else if (id == R.id.logout){
+//
+//            Toast.makeText(getApplicationContext(), "Logout is selected", Toast.LENGTH_SHORT).show();
+//
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 }
