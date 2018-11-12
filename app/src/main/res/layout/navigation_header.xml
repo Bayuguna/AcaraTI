@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="170dp"
     android:background="@drawable/header_navigation"
     android:orientation="vertical"
 
@@ -10,14 +10,27 @@
     android:gravity="bottom"
     android:theme="@style/AppTheme">
 
-    <android.support.v7.widget.AppCompatImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:adjustViewBounds="true"
-        android:contentDescription="profile_pic"
-        android:scaleType="fitCenter"
-        android:src="@drawable/user_profile" />
+    <RelativeLayout
+        android:id="@+id/pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/circle"
+        android:layout_marginTop="10dp">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/pic_nav"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:adjustViewBounds="true"
+            android:layout_margin="4dp"
+            android:contentDescription="profile_pic"
+            android:scaleType="fitCenter"
+            android:src="@drawable/user_profile" />
+
+    </RelativeLayout>
     <TextView
+        android:id="@+id/nama"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Putu Denanta Bayuguna Perteka"

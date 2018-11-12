@@ -9,6 +9,7 @@
     tools:context=".MainActivity">
 
     <RelativeLayout
+        android:id="@+id/layout_relative"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
@@ -66,13 +67,25 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layout"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:background="#9a6b44"
                 android:paddingLeft="70dp"
                 android:paddingRight="70dp"
                 android:text="Login"
                 android:textColor="#fff" />
 
+            <!--<Button-->
+                <!--android:id="@+id/sign_up"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/btn_login"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:background="#9a6b44"-->
+                <!--android:paddingLeft="70dp"-->
+                <!--android:paddingRight="70dp"-->
+                <!--android:text="Register"-->
+                <!--android:textColor="#fff" />-->
         </RelativeLayout>
     </RelativeLayout>
     <RelativeLayout
@@ -83,11 +96,12 @@
         android:layout_centerHorizontal="true"
         android:visibility="gone">
         <TextView
+            android:id="@+id/sign_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="FAQ"
-            android:drawableRight="@drawable/ic_action_help"
-            android:layout_marginBottom="15dp"/>
+            android:text="Register ?"
+            android:layout_marginBottom="15dp"
+            />
     </RelativeLayout>
 </RelativeLayout>

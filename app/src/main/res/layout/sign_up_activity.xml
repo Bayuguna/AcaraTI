@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_theme">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/layout_relative"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="REGISTER"
+            android:textSize="50dp"
+            android:textStyle="bold"
+            android:layout_marginBottom="15dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_relative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:background="@drawable/line_back">
+
+        <RelativeLayout
+            android:id="@+id/rellay1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/logo">
+
+            <LinearLayout
+                android:id="@+id/layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <EditText
+                    android:id="@+id/nim"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/edit_text"
+                    android:ems="10"
+                    android:hint=" NIM"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="5dp" />
+
+
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/edit_text"
+                    android:ems="10"
+                    android:hint=" Nama Lengkap"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="5dp"
+                    android:layout_marginTop="15dp"/>
+
+                <EditText
+                    android:id="@+id/gmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/edit_text"
+                    android:ems="10"
+                    android:hint=" E-mail"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="5dp"
+                    android:layout_marginTop="15dp"/>
+
+                <EditText
+                    android:id="@+id/telp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/edit_text"
+                    android:ems="10"
+                    android:hint=" Telephone"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="5dp"
+                    android:layout_marginTop="15dp"/>
+
+                <EditText
+                    android:id="@+id/alamat"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@drawable/edit_text"
+                    android:ems="10"
+                    android:hint=" Alamat"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="5dp"
+                    android:layout_marginTop="15dp"/>
+
+
+                <EditText
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/edit_text"
+                    android:ems="10"
+                    android:hint=" Username"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="5dp"
+                    android:layout_marginTop="15dp"/>
+
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/edit_text"
+                    android:ems="10"
+                    android:hint=" Password"
+                    android:inputType="textPassword"
+                    android:paddingLeft="5dp"
+                    android:layout_marginTop="15dp"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btn_regis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_relative"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:background="#9a6b44"
+        android:paddingLeft="70dp"
+        android:paddingRight="70dp"
+        android:text="Register"
+        android:textColor="#fff"
+        android:layout_margin="8dp"/>
+
+</RelativeLayout>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_theme">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/layout_relative"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="REGISTER"
+            android:textSize="50dp"
+            android:textStyle="bold"
+            android:layout_marginBottom="15dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_relative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:id="@+id/rellay1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/logo">
+
+            <LinearLayout
+                android:id="@+id/layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/line_back">
+
+                <EditText
+                    android:id="@+id/nim"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/edit_text"
+                    android:ems="10"
+                    android:hint=" NIM"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="5dp" />
+
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/edit_text"
+                    android:ems="10"
+                    android:hint=" Nama Lengkap"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="5dp"
+                    android:layout_marginTop="15dp"/>
+
+                <Spinner
+                    android:id="@+id/sie"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/edit_text"
+                    android:layout_marginTop="15dp"></Spinner>
+
+
+                <EditText
+                    android:id="@+id/alasan"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@drawable/edit_text"
+                    android:ems="10"
+                    android:hint=" Alasan"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="5dp"
+                    android:layout_marginTop="15dp"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/kirim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:background="#9a6b44"
+                android:paddingLeft="70dp"
+                android:paddingRight="70dp"
+                android:text="Kirim"
+                android:textColor="#fff" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

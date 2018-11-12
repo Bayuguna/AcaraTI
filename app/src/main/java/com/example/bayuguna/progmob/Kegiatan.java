@@ -7,8 +7,6 @@ public class Kegiatan {
     private String Description;
     public int Pamflet;
 
-    public Kegiatan() {
-    }
 
     public Kegiatan(String nama, String open_recruitment, String description, int pamflet) {
         Nama = nama;
