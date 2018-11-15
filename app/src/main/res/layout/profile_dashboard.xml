@@ -122,7 +122,7 @@
 
     </RelativeLayout>
     <Button
-        android:id="@+id/btn_sign"
+        android:id="@+id/btn_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rellay2"
@@ -131,7 +131,7 @@
         android:background="#9a6b44"
         android:paddingLeft="70dp"
         android:paddingRight="70dp"
-        android:text="Save"
+        android:text="Edit Profile"
         android:textColor="#fff"
         android:layout_margin="8dp"/>
 

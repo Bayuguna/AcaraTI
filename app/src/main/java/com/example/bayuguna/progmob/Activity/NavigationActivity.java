@@ -39,7 +39,7 @@ public class NavigationActivity extends AppCompatActivity {
 
     ApiService service;
     Call<List<KegiatanList>> call;
-    List<KegiatanList> lists;
+    List<KegiatanList> lists =  new ArrayList<>();
     private static final String TAG = "NavigationActivity";
 
     Call<User> callUser;
@@ -76,12 +76,6 @@ public class NavigationActivity extends AppCompatActivity {
         View header = navigationView.getHeaderView(0);
         TextView nama = (TextView) header.findViewById(R.id.nama_header_1);
 
-        Intent intent = getIntent();
-        String getNama = intent.getExtras().getString("Nama");
-        int getId = intent.getExtras().getInt("Id");
-
-        nama.setText(getNama);
-
         listkegiatan = new ArrayList<>();
         listkegiatan.add(new Kegiatan("Sporti", "11-11-2018", "Spo rt TI koskdokdoksorjosdf ojdfosfoksf sofkoskfoksd osekfoskeofksd fspfkpskfpse spfskdfpksepk sfkpskfsekoskf fsojfosfoejfmso koadkoaksdo oakdoaksodka oakdoakodak oakdoakosd oakdoaksdoka oakdoaksod aodkoakdo aokdoaksodk aodkaoskdo", R.drawable.header_navigation));
         listkegiatan.add(new Kegiatan("ITCC", "11-11-2018", "ITCC adalah", R.drawable.itcc));
@@ -92,6 +86,8 @@ public class NavigationActivity extends AppCompatActivity {
         listkegiatan.add(new Kegiatan("Sporti", "11-11-2018", "Sport TI", R.drawable.header_navigation));
 
 //        lists = new ArrayList<>();
+//        getData();
+
         myrey = (RecyclerView) findViewById(R.id.recyclerview_kegiatan);
         myadapter = new KegiatanAdapter(this, listkegiatan);
         myrey.setLayoutManager(new GridLayoutManager(this, 2));
@@ -104,8 +100,13 @@ public class NavigationActivity extends AppCompatActivity {
         drawerLayout.setDrawerListener(toggle);
 
         toggle.syncState();
+
+        Intent intent = getIntent();
+        String getNama = intent.getExtras().getString("Nama");
+        int getId = intent.getExtras().getInt("Id");
+
+        nama.setText(getNama);
         init(getId);
-//        getData();
     }
 
 //    public void getData(){
@@ -113,21 +114,21 @@ public class NavigationActivity extends AppCompatActivity {
 //        call.enqueue(new Callback<List<KegiatanList>>() {
 //            @Override
 //            public void onResponse(Call<List<KegiatanList>> call, Response<List<KegiatanList>> response) {
-//                Toast.makeText(NavigationActivity.this, "Berhasil Oyy",Toast.LENGTH_LONG).show();
-////                if (response.isSuccessful()) {
-////                    lists = response.body();
+//                Toast.makeText(NavigationActivity.this, "Berhasil",Toast.LENGTH_LONG).show();
+//                if (response.isSuccessful()) {
+//                    lists = response.body();
 ////                    Log.d(TAG, "onResponse: "+lists);
-////                    myadapter.setKegiatan(lists);
-////
-////                } else {
-////                    Toast.makeText(NavigationActivity.this, "Error Cuy",Toast.LENGTH_LONG).show();
-////                }
+//                    myadapter.setKegiatan(lists);
+//
+//                } else {
+//                    Toast.makeText(NavigationActivity.this, "Error",Toast.LENGTH_LONG).show();
+//                }
 //
 //            }
 //
 //            @Override
 //            public void onFailure(Call<List<KegiatanList>> call, Throwable t) {
-//                Toast.makeText(NavigationActivity.this, "Gagal Oyy",Toast.LENGTH_LONG).show();
+//                Toast.makeText(NavigationActivity.this, "Connection Lost",Toast.LENGTH_LONG).show();
 //            }
 //        });
 //

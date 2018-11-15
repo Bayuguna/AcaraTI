@@ -2,6 +2,7 @@ package com.example.bayuguna.progmob.network;
 
 
 import com.example.bayuguna.progmob.Model.KegiatanList;
+import com.example.bayuguna.progmob.Model.ListKegiatan;
 import com.example.bayuguna.progmob.Model.Riwayat;
 import com.example.bayuguna.progmob.Model.User;
 import com.example.bayuguna.progmob.Model.UserResponse;
@@ -13,6 +14,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ApiService {
@@ -43,5 +45,17 @@ public interface ApiService {
     @GET("kegiatan")
     Call<List<Riwayat>> getAllKegiatan();
 
+    @PUT("editUser/{id}")
+    @FormUrlEncoded
+    Call<User> editUser(
+            @Path("id") int id,
+            @Field("name") String name,
+            @Field("email")String email,
+            @Field("telp") String telp,
+            @Field("alamat") String alamat
+    );
+
+    @GET("showKegiatan")
+    Call<List<ListKegiatan>> getListKegiatan();
 
 }

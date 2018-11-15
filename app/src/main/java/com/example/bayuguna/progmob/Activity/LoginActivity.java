@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                                         .apply();
 
                                 if (response.body().getDataUser().getAs().equals("Member")){
-                                    Toast.makeText(LoginActivity.this, "Ini User",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(LoginActivity.this, "Welcome " + response.body().getDataUser().getName(),Toast.LENGTH_LONG).show();
 
                                     intent.putExtra("Id", response.body().getDataUser().getId());
                                     intent.putExtra("Nama", response.body().getDataUser().getName());
@@ -143,10 +143,10 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void onButtonClick(View v){
-        if (v.getId() == R.id.btn_login){
-            login_username = (EditText) findViewById(R.id.username);
-            login_pass = (EditText) findViewById(R.id.password);
-        }
-    }
+//    public void onButtonClick(View v){
+//        if (v.getId() == R.id.btn_login){
+//            login_username = (EditText) findViewById(R.id.username);
+//            login_pass = (EditText) findViewById(R.id.password);
+//        }
+//    }
 }

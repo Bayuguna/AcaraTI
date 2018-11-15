@@ -3,6 +3,8 @@ package com.example.bayuguna.progmob.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,8 @@ public class ProfileActivity extends AppCompatActivity {
     ApiService service;
     TextView nim, nama, gmail, telp, alamat;
     String nameString;
+    Button edit;
+    int getId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +41,12 @@ public class ProfileActivity extends AppCompatActivity {
         telp = (TextView) findViewById(R.id.profil_telp);
         alamat = (TextView) findViewById(R.id.profil_alamat);
 
+        edit = (Button) findViewById(R.id.btn_edit);
+
         Intent intent = getIntent();
-        int getId = intent.getExtras().getInt("Id");
+        getId = intent.getExtras().getInt("Id");
         getProfile(getId);
+        editUser();
 
     }
 
@@ -48,12 +55,11 @@ public class ProfileActivity extends AppCompatActivity {
         userCall.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                nameString = response.body().getName();
                 nim.setText(response.body().getNim());
                 nama.setText(response.body().getName());
                 gmail.setText(response.body().getEmail());
                 telp.setText(response.body().getTelp());
-                alamat.setText(response.body().getTelp());
+                alamat.setText(response.body().getAlamat());
 //                Toast.makeText(ProfileActivity.this,"nim :" + response.body().getNim(), Toast.LENGTH_LONG).show();
 
             }
@@ -64,4 +70,37 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void editUser(){
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getIntent();
+                getId = intent.getExtras().getInt("Id");
+                String name = nama.getText().toString();
+                String email = gmail.getText().toString();
+                String telps = telp.getText().toString();
+                String alamats = alamat.getText().toString();
+
+                userCall = service.editUser(getId,name,email,telps,alamats);
+                userCall.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if (response.isSuccessful()){
+                            Toast.makeText(ProfileActivity.this,"Profile Berhasil Diperbaharui" , Toast.LENGTH_LONG).show();
+                        }else {
+                            Toast.makeText(ProfileActivity.this,"Profile Gagal Diperbaharui" , Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Toast.makeText(ProfileActivity.this,"Connection Error", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            }
+        });
+
+            }
 }

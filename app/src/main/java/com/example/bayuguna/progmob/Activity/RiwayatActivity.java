@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.bayuguna.progmob.Adapter.RiwayatAdapter;
-import com.example.bayuguna.progmob.Model.Riwayat;
+import com.example.bayuguna.progmob.Model.ListKegiatan;
 import com.example.bayuguna.progmob.R;
 import com.example.bayuguna.progmob.network.ApiService;
 import com.example.bayuguna.progmob.network.RetrofitBuilder;
@@ -29,8 +29,11 @@ public class RiwayatActivity extends  AppCompatActivity {
     RiwayatAdapter myadapter;
 
     ApiService service;
-    Call<List<Riwayat>> call;
-    List<Riwayat> lists = new ArrayList<>();
+//    Call<List<Riwayat>> call;
+
+    Call<List<ListKegiatan>> call;
+//    List<Riwayat> lists = new ArrayList<>();
+    List<ListKegiatan> lists;
     private static final String TAG = "RiwayatActivity";
 
 
@@ -75,11 +78,33 @@ public class RiwayatActivity extends  AppCompatActivity {
 
     }
 
+//    public void getData(){
+//        call = service.getAllKegiatan();
+//        call.enqueue(new Callback<List<Riwayat>>() {
+//            @Override
+//            public void onResponse(Call<List<Riwayat>> call, Response<List<Riwayat>> response) {
+//                if (response.isSuccessful()) {
+//                    lists = response.body();
+////                    Log.d(TAG, "onResponse: "+lists);
+//                    myadapter.setKegiatan(lists);
+//
+//                } else {
+//                    Toast.makeText(RiwayatActivity.this, "Error Cuy",Toast.LENGTH_LONG).show();
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<List<Riwayat>> call, Throwable t) {
+//                Toast.makeText(RiwayatActivity.this, "Gagal Oyy",Toast.LENGTH_LONG).show();
+//            }
+//        });
+//
+//    }
+
     public void getData(){
-        call = service.getAllKegiatan();
-        call.enqueue(new Callback<List<Riwayat>>() {
+        call = service.getListKegiatan();
+        call.enqueue(new Callback<List<ListKegiatan>>() {
             @Override
-            public void onResponse(Call<List<Riwayat>> call, Response<List<Riwayat>> response) {
+            public void onResponse(Call<List<ListKegiatan>> call, Response<List<ListKegiatan>> response) {
                 if (response.isSuccessful()) {
                     lists = response.body();
 //                    Log.d(TAG, "onResponse: "+lists);
@@ -88,13 +113,14 @@ public class RiwayatActivity extends  AppCompatActivity {
                 } else {
                     Toast.makeText(RiwayatActivity.this, "Error Cuy",Toast.LENGTH_LONG).show();
                 }
+
             }
+
             @Override
-            public void onFailure(Call<List<Riwayat>> call, Throwable t) {
-                Toast.makeText(RiwayatActivity.this, "Gagal Oyy",Toast.LENGTH_LONG).show();
+            public void onFailure(Call<List<ListKegiatan>> call, Throwable t) {
+
             }
         });
-
     }
 
     @Override

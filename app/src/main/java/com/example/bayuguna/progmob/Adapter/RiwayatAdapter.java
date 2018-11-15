@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.bayuguna.progmob.Model.Riwayat;
+import com.example.bayuguna.progmob.Model.ListKegiatan;
 import com.example.bayuguna.progmob.R;
 
 import java.util.List;
@@ -17,14 +17,14 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.MyVieHol
 
 
     private Context rContext;
-    private List<Riwayat> rData;
-
-    public RiwayatAdapter(Context rContext, List<Riwayat> rData) {
+//    private List<Riwayat> rData;
+private List<ListKegiatan> rData;
+    public RiwayatAdapter(Context rContext, List<ListKegiatan> rData) {
         this.rContext = rContext;
         this.rData = rData;
     }
 
-    public void setKegiatan(List<Riwayat> rData) {
+    public void setKegiatan(List<ListKegiatan> rData) {
         this.rData = rData;
         notifyDataSetChanged();
     }
@@ -42,10 +42,10 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.MyVieHol
     @Override
     public void onBindViewHolder(@NonNull MyVieHolder myVieHolder, final int i) {
 
-        myVieHolder.Title.setText(rData.get(i).getNama());
+        myVieHolder.Title.setText(rData.get(i).getKegiatan().getNama());
 //        myVieHolder.Sie.setText(rData.get(i).getSie());
-        myVieHolder.Status.setText(rData.get(i).getStatus());
-        myVieHolder.Tanggal.setText(rData.get(i).getTanggal());
+        myVieHolder.Sie.setText(rData.get(i).getSie().getNama());
+        myVieHolder.Tanggal.setText(rData.get(i).getKegiatan().getTanggal());
 
 
     }
@@ -62,7 +62,7 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.MyVieHol
 
         TextView Title;
 //        TextView Sie;
-        TextView Status;
+        TextView Sie;
         TextView Tanggal;
 
 
@@ -71,7 +71,7 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.MyVieHol
 
             Title = (TextView) itemView.findViewById(R.id.riwayat_title);
 //            Sie = (TextView) itemView.findViewById(R.id.riwayat_sie);
-            Status = (TextView) itemView.findViewById(R.id.riwayat_status);
+            Sie = (TextView) itemView.findViewById(R.id.riwayat_sie);
             Tanggal = (TextView) itemView.findViewById(R.id.riwayat_tanggal);
 
         }
