@@ -1,15 +1,15 @@
-package com.example.bayuguna.progmob;
+package com.example.bayuguna.progmob.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.bayuguna.progmob.Model.Riwayat;
+import com.example.bayuguna.progmob.R;
 
 import java.util.List;
 
@@ -22,6 +22,11 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.MyVieHol
     public RiwayatAdapter(Context rContext, List<Riwayat> rData) {
         this.rContext = rContext;
         this.rData = rData;
+    }
+
+    public void setKegiatan(List<Riwayat> rData) {
+        this.rData = rData;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -37,8 +42,8 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.MyVieHol
     @Override
     public void onBindViewHolder(@NonNull MyVieHolder myVieHolder, final int i) {
 
-        myVieHolder.Title.setText(rData.get(i).getTitle());
-        myVieHolder.Sie.setText(rData.get(i).getSie());
+        myVieHolder.Title.setText(rData.get(i).getNama());
+//        myVieHolder.Sie.setText(rData.get(i).getSie());
         myVieHolder.Status.setText(rData.get(i).getStatus());
         myVieHolder.Tanggal.setText(rData.get(i).getTanggal());
 
@@ -47,13 +52,16 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.MyVieHol
 
     @Override
     public int getItemCount() {
-        return rData.size();
+        if(rData != null){
+            return rData.size();
+        }
+        return 0;
     }
 
     public static class MyVieHolder extends RecyclerView.ViewHolder {
 
         TextView Title;
-        TextView Sie;
+//        TextView Sie;
         TextView Status;
         TextView Tanggal;
 
@@ -62,7 +70,7 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.MyVieHol
             super(itemView);
 
             Title = (TextView) itemView.findViewById(R.id.riwayat_title);
-            Sie = (TextView) itemView.findViewById(R.id.riwayat_sie);
+//            Sie = (TextView) itemView.findViewById(R.id.riwayat_sie);
             Status = (TextView) itemView.findViewById(R.id.riwayat_status);
             Tanggal = (TextView) itemView.findViewById(R.id.riwayat_tanggal);
 

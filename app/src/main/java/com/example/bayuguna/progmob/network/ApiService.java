@@ -1,12 +1,19 @@
 package com.example.bayuguna.progmob.network;
 
 
-import com.example.bayuguna.progmob.User;
+import com.example.bayuguna.progmob.Model.KegiatanList;
+import com.example.bayuguna.progmob.Model.Riwayat;
+import com.example.bayuguna.progmob.Model.User;
+import com.example.bayuguna.progmob.Model.UserResponse;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ApiService {
 
@@ -22,7 +29,19 @@ public interface ApiService {
 
     @POST("login")
     @FormUrlEncoded
-    Call<User> login(@Field("email") String email,
-                        @Field("password") String password);
+    Call<UserResponse<User>> login(@Field("username") String username,
+                                  @Field("password") String password);
+
+    @GET("userLogin/{id}")
+    Call<User> userlogin(
+            @Path("id") int id
+    );
+
+    @GET("kegiatan")
+    Call<List<KegiatanList>> getKegiatanList();
+
+    @GET("kegiatan")
+    Call<List<Riwayat>> getAllKegiatan();
+
 
 }

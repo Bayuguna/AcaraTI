@@ -1,4 +1,4 @@
-package com.example.bayuguna.progmob;
+package com.example.bayuguna.progmob.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.bayuguna.progmob.Activity.KegiatanActivity;
+import com.example.bayuguna.progmob.Model.Kegiatan;
+import com.example.bayuguna.progmob.R;
 
 import java.util.List;
 
@@ -24,13 +28,18 @@ public class KegiatanAdapter extends RecyclerView.Adapter<KegiatanAdapter.MyVieH
         this.kData = kData;
     }
 
+    public void setKegiatan(List<Kegiatan> kData) {
+        this.kData = kData;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public MyVieHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View view;
         LayoutInflater kInflater = LayoutInflater.from(kContext);
-        view = kInflater.inflate(R.layout.dashboard_kegiatan,viewGroup,false);
+        view = kInflater.inflate(R.layout.kegiatan_card,viewGroup,false);
         return new MyVieHolder(view);
     }
 

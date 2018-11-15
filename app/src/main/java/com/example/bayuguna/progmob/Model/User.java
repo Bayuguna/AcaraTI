@@ -1,9 +1,12 @@
-package com.example.bayuguna.progmob;
+package com.example.bayuguna.progmob.Model;
 
 import com.google.gson.annotations.SerializedName;
 
 //@Generated("com.robohorse.robopojogenerator")
 public class User{
+
+	@SerializedName("as")
+	private String as;
 
 	@SerializedName("nim")
 	private String nim;
@@ -23,6 +26,9 @@ public class User{
 	@SerializedName("id")
 	private int id;
 
+	@SerializedName("pic")
+	private Object pic;
+
 	@SerializedName("email")
 	private String email;
 
@@ -31,6 +37,17 @@ public class User{
 
 	@SerializedName("username")
 	private String username;
+
+	@SerializedName("token")
+	private String token;
+
+	public void setAs(String as){
+		this.as = as;
+	}
+
+	public String getAs(){
+		return as;
+	}
 
 	public void setNim(String nim){
 		this.nim = nim;
@@ -80,6 +97,14 @@ public class User{
 		return id;
 	}
 
+	public void setPic(Object pic){
+		this.pic = pic;
+	}
+
+	public Object getPic(){
+		return pic;
+	}
+
 	public void setEmail(String email){
 		this.email = email;
 	}
@@ -100,6 +125,14 @@ public class User{
 		this.username = username;
 	}
 
+	public String getToken(){
+		return token;
+	}
+
+	public void setToken(String token){
+		this.token = token;
+	}
+
 	public String getUsername(){
 		return username;
 	}
@@ -108,15 +141,18 @@ public class User{
  	public String toString(){
 		return 
 			"User{" + 
-			"nim = '" + nim + '\'' + 
+			"as = '" + as + '\'' + 
+			",nim = '" + nim + '\'' + 
 			",telp = '" + telp + '\'' + 
 			",updated_at = '" + updatedAt + '\'' + 
 			",name = '" + name + '\'' + 
 			",created_at = '" + createdAt + '\'' + 
 			",id = '" + id + '\'' + 
+			",pic = '" + pic + '\'' + 
 			",email = '" + email + '\'' + 
 			",alamat = '" + alamat + '\'' + 
-			",username = '" + username + '\'' + 
+			",username = '" + username + '\'' +
+			",token = '" + token + '\'' +
 			"}";
 		}
 }

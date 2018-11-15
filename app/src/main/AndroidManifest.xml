@@ -11,19 +11,21 @@
         android:roundIcon="@drawable/logos"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity"></activity>
-        <activity android:name=".NavigationActivity"></activity>
-        <activity android:name=".KegiatanActivity"></activity>
-        <activity android:name=".RegisterKepanitianActivity"></activity>
-        <activity android:name=".ProfileActivity"></activity>
-        <activity android:name=".RiwayatActivity"></activity>
+        <activity android:name=".Activity.SignUpActivity"></activity>
+        <activity android:name=".Activity.NavigationActivity"></activity>
+        <activity android:name=".Activity.KegiatanActivity"></activity>
+        <activity android:name=".Activity.RegisterKepanitianActivity"></activity>
+        <activity android:name=".Activity.ProfileActivity"></activity>
+        <activity android:name=".Activity.RiwayatActivity"></activity>
+
+
     </application>
 
 </manifest>

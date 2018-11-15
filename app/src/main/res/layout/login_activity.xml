@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_theme"
     android:animateLayoutChanges="true"
-    tools:context=".LoginActivity">
+    tools:context=".Activity.LoginActivity">
 
     <RelativeLayout
         android:id="@+id/layout_relative"
@@ -38,13 +38,13 @@
                 android:padding="30dp">
 
                 <EditText
-                    android:id="@+id/email"
+                    android:id="@+id/username"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/round_edit_text"
                     android:ems="10"
                     android:gravity="center"
-                    android:hint="Email"
+                    android:hint="Username"
                     android:inputType="textPersonName"
                     android:paddingLeft="5dp" />
 

@@ -1,4 +1,4 @@
-package com.example.bayuguna.progmob;
+package com.example.bayuguna.progmob.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.bayuguna.progmob.R;
 
 public class KegiatanActivity extends  AppCompatActivity {
 

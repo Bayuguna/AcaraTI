@@ -53,18 +53,18 @@
             android:padding="15dp"
             android:background="@drawable/profile_bg">
 
-            <EditText
-                android:id="@+id/id_user"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/edit_text"
-                android:ems="10"
-                android:hint=" ID"
-                android:inputType="textPersonName"
-                android:paddingLeft="5dp" />
+            <!--<EditText-->
+                <!--android:id="@+id/id_user"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:background="@drawable/edit_text"-->
+                <!--android:ems="10"-->
+                <!--android:hint=" ID"-->
+                <!--android:inputType="textPersonName"-->
+                <!--android:paddingLeft="5dp" />-->
 
             <EditText
-                android:id="@+id/nim"
+                android:id="@+id/profil_nim"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/edit_text"
@@ -72,10 +72,11 @@
                 android:hint=" NIM"
                 android:inputType="textPersonName"
                 android:paddingLeft="5dp"
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="15dp"
+                android:enabled="false"/>
 
             <EditText
-                android:id="@+id/name"
+                android:id="@+id/profil_name"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/edit_text"
@@ -86,7 +87,7 @@
                 android:layout_marginTop="15dp"/>
 
             <EditText
-                android:id="@+id/gmail"
+                android:id="@+id/profil_gmail"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/edit_text"
@@ -97,7 +98,7 @@
                 android:layout_marginTop="15dp"/>
 
             <EditText
-                android:id="@+id/telp"
+                android:id="@+id/profil_telp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/edit_text"
@@ -108,7 +109,7 @@
                 android:layout_marginTop="15dp"/>
 
             <EditText
-                android:id="@+id/alamat"
+                android:id="@+id/profil_alamat"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:background="@drawable/edit_text"

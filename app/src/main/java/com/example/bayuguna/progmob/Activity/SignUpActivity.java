@@ -1,5 +1,6 @@
-package com.example.bayuguna.progmob;
+package com.example.bayuguna.progmob.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.bayuguna.progmob.DatabaseHelper;
+import com.example.bayuguna.progmob.Model.User;
+import com.example.bayuguna.progmob.R;
 import com.example.bayuguna.progmob.network.ApiService;
 import com.example.bayuguna.progmob.network.RetrofitBuilder;
 
@@ -30,7 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.sign_up_activity);
 
         btn_regis = (Button) findViewById(R.id.btn_regis);
-        insert_nim = (EditText) findViewById(R.id.nim);
+        insert_nim = (EditText) findViewById(R.id.profil_nim);
         insert_nama = (EditText) findViewById(R.id.name);
         insert_gmail = (EditText) findViewById(R.id.gmail);
         insert_telp = (EditText) findViewById(R.id.telp);
@@ -65,11 +69,15 @@ public class SignUpActivity extends AppCompatActivity {
                                 }else {
                                     if (response.isSuccessful()){
                                         Toast.makeText(SignUpActivity.this, "You are Registered",Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                                        getSharedPreferences("login", Context.MODE_PRIVATE)
+                                                .edit()
+                                                .putString("token", response.body().getToken())
+                                                .apply();
+                                        Intent intent = new Intent(SignUpActivity.this, NavigationActivity.class);
                                         startActivity(intent);
 
                                     }else {
-                                        Toast.makeText(SignUpActivity.this, "Tidak semudah itu ferguso",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(SignUpActivity.this, "Tidak semudah itu Aguero",Toast.LENGTH_LONG).show();
                                     }
 
                                 }

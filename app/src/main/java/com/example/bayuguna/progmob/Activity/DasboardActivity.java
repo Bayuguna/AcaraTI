@@ -1,8 +1,11 @@
-package com.example.bayuguna.progmob;
+package com.example.bayuguna.progmob.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+
+import com.example.bayuguna.progmob.Model.Kegiatan;
+import com.example.bayuguna.progmob.R;
 
 import java.util.List;
 
