@@ -2,6 +2,7 @@ package com.example.bayuguna.progmob.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     ApiService service;
     TokenManager tokenManager;
     retrofit2.Call<UserResponse<User>> call;
+    private SharedPreferences userPreference;
 
     private static final String TAG = "LoginActivity";
 
@@ -79,6 +81,15 @@ public class LoginActivity extends AppCompatActivity {
         init();
         login();
 
+        // get token from shared preference
+        userPreference = this.getSharedPreferences("user", Context.MODE_PRIVATE);
+        String token = userPreference.getString("token", "missing");
+
+        // check token
+        if (token != "missing") {
+            new LoginActivity();
+        }
+
 
     }
 
@@ -94,8 +105,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<UserResponse<User>> call, Response<UserResponse<User>> response) {
 
-                        Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
-
 
                         if (login_username.getText().toString().isEmpty() && login_pass.getText().toString().isEmpty()){
                             Toast.makeText(LoginActivity.this, "Isi dulu fieldnya",Toast.LENGTH_LONG).show();
@@ -109,7 +118,8 @@ public class LoginActivity extends AppCompatActivity {
                                         .apply();
 
                                 if (response.body().getDataUser().getAs().equals("Member")){
-                                    Toast.makeText(LoginActivity.this, "Welcome " + response.body().getDataUser().getName(),Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
+//                                    Toast.makeText(LoginActivity.this, "Welcome " + response.body().getDataUser().getName(),Toast.LENGTH_LONG).show();
 
                                     intent.putExtra("Id", response.body().getDataUser().getId());
                                     intent.putExtra("Nama", response.body().getDataUser().getName());
@@ -117,8 +127,10 @@ public class LoginActivity extends AppCompatActivity {
 
                                     finish();
                                 }else if (response.body().getDataUser().getAs().equals("Admin")){
+                                    Intent intent = new Intent(LoginActivity.this, AdminNavigationActivity.class);
                                     Toast.makeText(LoginActivity.this, "Ini Admin",Toast.LENGTH_LONG).show();
 
+                                    intent.putExtra("Id", response.body().getDataUser().getId());
                                     intent.putExtra("Nama", response.body().getDataUser().getName());
                                     startActivity(intent);
 
@@ -136,17 +148,10 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<UserResponse<User>> call, Throwable t) {
-
+                        Toast.makeText(LoginActivity.this, "Connection Lost",Toast.LENGTH_LONG).show();
                     }
                 });
             }
         });
     }
-
-//    public void onButtonClick(View v){
-//        if (v.getId() == R.id.btn_login){
-//            login_username = (EditText) findViewById(R.id.username);
-//            login_pass = (EditText) findViewById(R.id.password);
-//        }
-//    }
 }

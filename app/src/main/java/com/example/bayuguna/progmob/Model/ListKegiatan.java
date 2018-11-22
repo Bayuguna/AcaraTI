@@ -1,24 +1,45 @@
 package com.example.bayuguna.progmob.Model;
 
-public class ListKegiatan{
-	private int idSie;
-	private String updatedAt;
-	private String jobDesc;
-	private Kegiatans kegiatan;
-	private String kuota;
-	private String createdAt;
-	private int id;
-	private String namaKoor;
-	private String lineId;
-	private int idKegiatan;
-	private Sie sie;
+import com.google.gson.annotations.SerializedName;
 
-	public void setIdSie(int idSie){
-		this.idSie = idSie;
+import java.util.List;
+
+//@Generated("com.robohorse.robopojogenerator")
+public class ListKegiatan{
+
+	@SerializedName("nama")
+	private String nama;
+
+	@SerializedName("updated_at")
+	private String updatedAt;
+
+	@SerializedName("created_at")
+	private String createdAt;
+
+	@SerializedName("id")
+	private int id;
+
+	@SerializedName("pic")
+	private Object pic;
+
+	@SerializedName("tanggal")
+	private String tanggal;
+
+	@SerializedName("deskripsi")
+	private String deskripsi;
+
+	@SerializedName("status")
+	private String status;
+
+	@SerializedName("det_kegiatan")
+	private List<DetKegiatanItem> detKegiatan;
+
+	public void setNama(String nama){
+		this.nama = nama;
 	}
 
-	public int getIdSie(){
-		return idSie;
+	public String getNama(){
+		return nama;
 	}
 
 	public void setUpdatedAt(String updatedAt){
@@ -27,30 +48,6 @@ public class ListKegiatan{
 
 	public String getUpdatedAt(){
 		return updatedAt;
-	}
-
-	public void setJobDesc(String jobDesc){
-		this.jobDesc = jobDesc;
-	}
-
-	public String getJobDesc(){
-		return jobDesc;
-	}
-
-	public void setKegiatan(Kegiatans kegiatan){
-		this.kegiatan = kegiatan;
-	}
-
-	public Kegiatans getKegiatan(){
-		return kegiatan;
-	}
-
-	public void setKuota(String kuota){
-		this.kuota = kuota;
-	}
-
-	public String getKuota(){
-		return kuota;
 	}
 
 	public void setCreatedAt(String createdAt){
@@ -69,53 +66,59 @@ public class ListKegiatan{
 		return id;
 	}
 
-	public void setNamaKoor(String namaKoor){
-		this.namaKoor = namaKoor;
+	public void setPic(Object pic){
+		this.pic = pic;
 	}
 
-	public String getNamaKoor(){
-		return namaKoor;
+	public Object getPic(){
+		return pic;
 	}
 
-	public void setLineId(String lineId){
-		this.lineId = lineId;
+	public void setTanggal(String tanggal){
+		this.tanggal = tanggal;
 	}
 
-	public String getLineId(){
-		return lineId;
+	public String getTanggal(){
+		return tanggal;
 	}
 
-	public void setIdKegiatan(int idKegiatan){
-		this.idKegiatan = idKegiatan;
+	public void setDeskripsi(String deskripsi){
+		this.deskripsi = deskripsi;
 	}
 
-	public int getIdKegiatan(){
-		return idKegiatan;
+	public String getDeskripsi(){
+		return deskripsi;
 	}
 
-	public void setSie(Sie sie){
-		this.sie = sie;
+	public void setStatus(String status){
+		this.status = status;
 	}
 
-	public Sie getSie(){
-		return sie;
+	public String getStatus(){
+		return status;
+	}
+
+	public void setDetKegiatan(List<DetKegiatanItem> detKegiatan){
+		this.detKegiatan = detKegiatan;
+	}
+
+	public List<DetKegiatanItem> getDetKegiatan(){
+		return detKegiatan;
 	}
 
 	@Override
  	public String toString(){
 		return 
 			"ListKegiatan{" + 
-			"id_sie = '" + idSie + '\'' + 
+			"nama = '" + nama + '\'' + 
 			",updated_at = '" + updatedAt + '\'' + 
-			",job_desc = '" + jobDesc + '\'' + 
-			",kegiatan = '" + kegiatan + '\'' + 
-			",kuota = '" + kuota + '\'' + 
 			",created_at = '" + createdAt + '\'' + 
 			",id = '" + id + '\'' + 
-			",nama_koor = '" + namaKoor + '\'' + 
-			",line_id = '" + lineId + '\'' + 
-			",id_kegiatan = '" + idKegiatan + '\'' + 
-			",sie = '" + sie + '\'' + 
+			",pic = '" + pic + '\'' + 
+			",tanggal = '" + tanggal + '\'' + 
+			",deskripsi = '" + deskripsi + '\'' + 
+			",status = '" + status + '\'' + 
+			",det_kegiatan = '" + detKegiatan + '\'' + 
 			"}";
 		}
 }

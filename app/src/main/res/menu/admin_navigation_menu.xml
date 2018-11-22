@@ -8,14 +8,14 @@
             android:icon="@drawable/hexagon"
             />
 
-        <item
-            android:title="Pengumuman"
-            android:id="@+id/pengumuman"
-            android:icon="@drawable/pemberitahuan"/>
+        <!--<item-->
+            <!--android:title="Pengumuman"-->
+            <!--android:id="@+id/pengumuman"-->
+            <!--android:icon="@drawable/pemberitahuan"/>-->
 
         <item
-            android:title="Riwayat Kepanitiaan"
-            android:id="@+id/riwayat_kepanitiaan"
+            android:title="Kepanitiaan Berlangsung"
+            android:id="@+id/kepanitiaan"
             android:icon="@drawable/history"/>
     </group>
 
@@ -24,7 +24,7 @@
             <item
                 android:title="Settings"
                 android:id="@+id/settings"
-                android:icon="@drawable/settings" />
+                android:icon="@drawable/settings"/>
             <item
                 android:title="About"
                 android:id="@+id/about"

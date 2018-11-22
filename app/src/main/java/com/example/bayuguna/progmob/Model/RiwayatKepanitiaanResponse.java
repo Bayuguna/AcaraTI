@@ -2,7 +2,8 @@ package com.example.bayuguna.progmob.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RiwayatKepanitiaan{
+//@Generated("com.robohorse.robopojogenerator")
+public class RiwayatKepanitiaanResponse{
 
 	@SerializedName("id_det_kegiatan")
 	private int idDetKegiatan;
@@ -22,8 +23,8 @@ public class RiwayatKepanitiaan{
 	@SerializedName("users")
 	private User users;
 
-	@SerializedName("det_kegiatan")
-	private Object detKegiatan;
+//	@SerializedName("det_kegiatan")
+//	private DetKegiatan detKegiatan;
 
 	public void setIdDetKegiatan(int idDetKegiatan){
 		this.idDetKegiatan = idDetKegiatan;
@@ -73,25 +74,25 @@ public class RiwayatKepanitiaan{
 		return users;
 	}
 
-	public void setDetKegiatan(Object detKegiatan){
-		this.detKegiatan = detKegiatan;
-	}
-
-	public Object getDetKegiatan(){
-		return detKegiatan;
-	}
+//	public void setDetKegiatan(DetKegiatan detKegiatan){
+//		this.detKegiatan = detKegiatan;
+//	}
+//
+//	public DetKegiatan getDetKegiatan(){
+//		return detKegiatan;
+//	}
 
 	@Override
  	public String toString(){
 		return 
-			"RiwayatKepanitiaan{" + 
+			"RiwayatKepanitiaanResponse{" + 
 			"id_det_kegiatan = '" + idDetKegiatan + '\'' + 
 			",id_users = '" + idUsers + '\'' + 
 			",id = '" + id + '\'' + 
 			",tanggal_daftar = '" + tanggalDaftar + '\'' + 
 			",status_kepanitiaan = '" + statusKepanitiaan + '\'' + 
 			",users = '" + users + '\'' + 
-			",det_kegiatan = '" + detKegiatan + '\'' + 
+//			",det_kegiatan = '" + detKegiatan + '\'' +
 			"}";
 		}
 }

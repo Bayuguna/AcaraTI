@@ -25,6 +25,14 @@
         <activity android:name=".Activity.ProfileActivity"></activity>
         <activity android:name=".Activity.RiwayatActivity"></activity>
 
+        <activity android:name=".Activity.AdminNavigationActivity"></activity>
+        <activity android:name=".Activity.AdminAddKegiatanActivity"></activity>
+        <activity android:name=".Activity.AdminKegiatanActivity"></activity>
+        <activity android:name=".Activity.AdminTambahSieActivity"></activity>
+        <activity android:name=".Activity.AdminPesertaActivity"></activity>
+        <activity android:name=".Activity.AboutActivity"></activity>
+
+
 
     </application>
 

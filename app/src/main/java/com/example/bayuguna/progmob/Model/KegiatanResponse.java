@@ -2,8 +2,9 @@ package com.example.bayuguna.progmob.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-//@Generated("com.robohorse.robopojogenerator")
-public class KegiatanList{
+import java.util.List;
+
+public class KegiatanResponse{
 
 	@SerializedName("nama")
 	private String nama;
@@ -18,7 +19,7 @@ public class KegiatanList{
 	private int id;
 
 	@SerializedName("pic")
-	private int pic;
+	private String pic;
 
 	@SerializedName("tanggal")
 	private String tanggal;
@@ -26,11 +27,11 @@ public class KegiatanList{
 	@SerializedName("deskripsi")
 	private String deskripsi;
 
-	@SerializedName("remember_token")
-	private Object rememberToken;
-
 	@SerializedName("status")
 	private String status;
+
+	@SerializedName("det_kegiatan")
+	private List<DetKegiatanItem> detKegiatan;
 
 	public void setNama(String nama){
 		this.nama = nama;
@@ -64,11 +65,11 @@ public class KegiatanList{
 		return id;
 	}
 
-	public void setPic(int pic){
+	public void setPic(String pic){
 		this.pic = pic;
 	}
 
-	public int getPic(){
+	public String getPic(){
 		return pic;
 	}
 
@@ -88,14 +89,6 @@ public class KegiatanList{
 		return deskripsi;
 	}
 
-	public void setRememberToken(Object rememberToken){
-		this.rememberToken = rememberToken;
-	}
-
-	public Object getRememberToken(){
-		return rememberToken;
-	}
-
 	public void setStatus(String status){
 		this.status = status;
 	}
@@ -104,19 +97,27 @@ public class KegiatanList{
 		return status;
 	}
 
+	public void setDetKegiatan(List<DetKegiatanItem> detKegiatan){
+		this.detKegiatan = detKegiatan;
+	}
+
+	public List<DetKegiatanItem> getDetKegiatan(){
+		return detKegiatan;
+	}
+
 	@Override
  	public String toString(){
 		return 
-			"KegiatanList{" + 
-			"nama = '" + nama + '\'' +
-			",updated_at = '" + updatedAt + '\'' +
-			",created_at = '" + createdAt + '\'' +
-			",id = '" + id + '\'' +
+			"KegiatanResponse{" + 
+			"nama = '" + nama + '\'' + 
+			",updated_at = '" + updatedAt + '\'' + 
+			",created_at = '" + createdAt + '\'' + 
+			",id = '" + id + '\'' + 
 			",pic = '" + pic + '\'' + 
 			",tanggal = '" + tanggal + '\'' + 
-			",deskripsi = '" + deskripsi + '\'' +
-			",remember_token = '" + rememberToken + '\'' +
-			",status = '" + status + '\'' +
+			",deskripsi = '" + deskripsi + '\'' + 
+			",status = '" + status + '\'' + 
+			",det_kegiatan = '" + detKegiatan + '\'' + 
 			"}";
 		}
 }

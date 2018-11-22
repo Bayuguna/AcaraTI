@@ -68,6 +68,24 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btn_tambah_sie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tambah Sie"/>
+
+                <Button
+                    android:id="@+id/btn_edit_kegiatan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edit Kegiatan"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="10dp"
                 android:layout_marginTop="5dp"
@@ -94,20 +112,12 @@
                 </android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/btn_peserta"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp">
-
-                <Button
-                    android:id="@+id/register"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Ikuti +"
-                    android:background="@drawable/bg_theme"/>
-
-            </LinearLayout>
+                android:gravity="center"
+                android:text="Peserta"/>
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

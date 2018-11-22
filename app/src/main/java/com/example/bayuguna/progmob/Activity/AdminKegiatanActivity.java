@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bayuguna.progmob.Adapter.DetailKegiatanAdapter;
 import com.example.bayuguna.progmob.Model.Sie;
@@ -25,11 +26,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class KegiatanActivity extends  AppCompatActivity {
+public class AdminKegiatanActivity extends  AppCompatActivity {
 
     private TextView nama,open_rec,description,sie;
     private ImageView pamflet;
-    private Button login;
+    private Button tambah_sie,peserta;
 
     RecyclerView myrey;
     DetailKegiatanAdapter myadapter;
@@ -38,55 +39,30 @@ public class KegiatanActivity extends  AppCompatActivity {
     Call<List<Sie>> call;
     List<Sie> lists =  new ArrayList<>();
 
-    public void init() {
-        login = (Button) findViewById(R.id.register);
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(KegiatanActivity.this, RegisterKepanitianActivity.class);
-
-                startActivity(intent);
-            }
-        });
-
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.kegiatan_detail_activity);
+        setContentView(R.layout.admin_kegiatan_detail_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
         nama = (TextView) findViewById(R.id.kegiatan_title);
-//        open_rec = (TextView) findViewById(R.id.kegitan_open_rec);
         description = (TextView) findViewById(R.id.kegiatan_desc);
         pamflet = (ImageView) findViewById(R.id.kegiatan_pic);
-//        sie = (TextView) findViewById(R.id.sie);
 
         service = RetrofitBuilder.creatService(ApiService.class);
 
         Intent intent = getIntent();
         int id_kegiatan = intent.getExtras().getInt("Id");
+//        Log.d("ID IN ADMIN KEGIATAN", id_kegiatan + "");
         String title = intent.getExtras().getString("Title");
-//        String tanggal = intent.getExtras().getString("Tanggal");
         String desc = intent.getExtras().getString("Description");
-//        String sie1 = intent.getExtras().getString("Sie");
-//        int image = intent.getExtras().getInt("Pamflet");
 
         nama.setText(title);
-//        open_rec.setText(tanggal);
         description.setText(desc);
-//        sie.setText(sie1);
-//        pamflet.setImageResource(image);
 
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        init();
         lists = new ArrayList<>();
         getData(id_kegiatan);
 
@@ -95,7 +71,10 @@ public class KegiatanActivity extends  AppCompatActivity {
         myrey.setLayoutManager(new GridLayoutManager(this, 3));
         myrey.setAdapter(myadapter);
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        init(id_kegiatan);
 
     }
 
@@ -104,10 +83,9 @@ public class KegiatanActivity extends  AppCompatActivity {
         call.enqueue(new Callback<List<Sie>>() {
             @Override
             public void onResponse(Call<List<Sie>> call, Response<List<Sie>> response) {
+                Toast.makeText(AdminKegiatanActivity.this, "Welcome " + response.body(),Toast.LENGTH_LONG).show();
                 lists = response.body();
-//                    Log.d(TAG, "onResponse: "+lists);
                 myadapter.setKegiatan(lists);
-
             }
 
             @Override
@@ -116,6 +94,31 @@ public class KegiatanActivity extends  AppCompatActivity {
             }
         });
 
+    }
+
+    public void init(final int id_kegiatan){
+        tambah_sie = (Button) findViewById(R.id.btn_tambah_sie);
+        tambah_sie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminKegiatanActivity.this, AdminTambahSieActivity.class);
+
+                intent.putExtra("Id_kegiatan", id_kegiatan);
+                intent.putExtra("Nama_kepanitiaan", nama.getText().toString());
+                startActivity(intent);
+            }
+        });
+
+        peserta = (Button) findViewById(R.id.btn_peserta);
+        peserta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminKegiatanActivity.this, AdminPesertaActivity.class);
+
+                intent.putExtra("Id", id_kegiatan);
+                startActivity(intent);
+            }
+        });
     }
 
 

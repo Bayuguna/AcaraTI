@@ -4,14 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 
-import com.example.bayuguna.progmob.Model.Kegiatan;
 import com.example.bayuguna.progmob.R;
-
-import java.util.List;
 
 public class DasboardActivity extends AppCompatActivity{
     android.support.v7.widget.Toolbar toolbar;
-    List<Kegiatan> listkegiatan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

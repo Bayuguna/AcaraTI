@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bayuguna.progmob.Adapter.KegiatanAdapter;
+import com.example.bayuguna.progmob.Adapter.AdminKegiatanAdapter;
 import com.example.bayuguna.progmob.Model.ListKegiatan;
 import com.example.bayuguna.progmob.Model.User;
 import com.example.bayuguna.progmob.R;
@@ -28,22 +28,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NavigationActivity extends AppCompatActivity {
+public class AdminNavigationActivity extends AppCompatActivity {
 
+    ImageView add;
     android.support.v7.widget.Toolbar toolbar = null;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+    TextView nama;
 
     RecyclerView myrey;
 
-    KegiatanAdapter myadapter;
+    AdminKegiatanAdapter myadapter;
 
     ApiService service;
     Call<List<ListKegiatan>> call;
     List<ListKegiatan> lists =  new ArrayList<>();
-//    Call<List<ListKegiatan>> call;
-//    List<ListKegiatan> lists =  new ArrayList<>();
-    private static final String TAG = "NavigationActivity";
+    private static final String TAG = "AdminNavigationActivity";
 
     Call<User> callUser;
 
@@ -68,7 +68,7 @@ public class NavigationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.navigation_dashboard);
+        setContentView(R.layout.admin_navigation_dashboard);
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -77,7 +77,7 @@ public class NavigationActivity extends AppCompatActivity {
         service = RetrofitBuilder.creatService(ApiService.class);
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         View header = navigationView.getHeaderView(0);
-        TextView nama = (TextView) header.findViewById(R.id.nama_header_1);
+        nama = (TextView) header.findViewById(R.id.nama_header_1);
 
 //        listkegiatan = new ArrayList<>();
 //        listkegiatan.add(new Kegiatan("Sporti", "11-11-2018", "Spo rt TI koskdokdoksorjosdf ojdfosfoksf sofkoskfoksd osekfoskeofksd fspfkpskfpse spfskdfpksepk sfkpskfsekoskf fsojfosfoejfmso koadkoaksdo oakdoaksodka oakdoakodak oakdoakosd oakdoaksdoka oakdoaksod aodkoakdo aokdoaksodk aodkaoskdo", R.drawable.header_navigation));
@@ -92,7 +92,7 @@ public class NavigationActivity extends AppCompatActivity {
         getData();
 
         myrey = (RecyclerView) findViewById(R.id.recyclerview_kegiatan);
-        myadapter = new KegiatanAdapter(this, lists);
+        myadapter = new AdminKegiatanAdapter(this, lists);
         myrey.setLayoutManager(new GridLayoutManager(this, 2));
         myrey.setAdapter(myadapter);
 
@@ -110,6 +110,19 @@ public class NavigationActivity extends AppCompatActivity {
 
         nama.setText(getNama);
         init(getId);
+        init();
+    }
+
+    public void init() {
+        add = (ImageView) findViewById(R.id.add_kegiatan);
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminNavigationActivity.this, AdminAddKegiatanActivity.class ));
+            }
+        });
+
     }
 
     public void getData(){
@@ -117,21 +130,21 @@ public class NavigationActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<ListKegiatan>>() {
             @Override
             public void onResponse(Call<List<ListKegiatan>> call, Response<List<ListKegiatan>> response) {
-//                Toast.makeText(NavigationActivity.this, "Berhasil",Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminNavigationActivity.this, "Berhasil",Toast.LENGTH_LONG).show();
                 if (response.isSuccessful()) {
                     lists = response.body();
 //                    Log.d(TAG, "onResponse: "+lists);
                     myadapter.setKegiatan(lists);
 
                 } else {
-                    Toast.makeText(NavigationActivity.this, "Error",Toast.LENGTH_LONG).show();
+                    Toast.makeText(AdminNavigationActivity.this, "Error",Toast.LENGTH_LONG).show();
                 }
 
             }
 
             @Override
             public void onFailure(Call<List<ListKegiatan>> call, Throwable t) {
-                Toast.makeText(NavigationActivity.this, "Connection Lost",Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminNavigationActivity.this, "Connection Lost",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -147,16 +160,10 @@ public class NavigationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                callUser = service.userlogin();
-//                callUser.enqueue(new Callback<User>() {
-//                    @Override
-//                    public void onResponse(Call<User> call, Response<User> response) {
-//                        Log.d(TAG, "onResponse: " + response.body());
-//                        Toast.makeText(NavigationActivity.this, "Berhasil Oyy" + response.body() ,Toast.LENGTH_LONG).show();;
-                Intent intent = new Intent(NavigationActivity.this, ProfileActivity.class);
+
+                Intent intent = new Intent(AdminNavigationActivity.this, ProfileActivity.class);
                 intent.putExtra("Id", getId);
-//                        intent.putExtra("Id", response.body().getId());
-//                        intent.putExtra("Nama", response.body().getName());
+
                 startActivity(intent);
             }
 
@@ -177,25 +184,26 @@ public class NavigationActivity extends AppCompatActivity {
                 switch (id) {
 
                     case R.id.kegiatan:
-                        Intent kegiatan = new Intent(NavigationActivity.this, NavigationActivity.class);
+                        Intent kegiatan = new Intent(AdminNavigationActivity.this, AdminNavigationActivity.class);
 
+                        kegiatan.putExtra("Nama", nama.getText().toString());
                         kegiatan.putExtra("Id", getId);
                         startActivity(kegiatan);
                         break;
-                    case R.id.pengumuman:
-                        Intent pengumuman = new Intent(NavigationActivity.this, ProfileActivity.class);
+                    case R.id.kepanitiaan:
+                        Intent kepanitiaan = new Intent(AdminNavigationActivity.this, AdminNavigationActivity.class);
 
-                        pengumuman.putExtra("Id", getId);
-                        startActivity(pengumuman);
+                        kepanitiaan.putExtra("Nama", nama.getText().toString());
+                        kepanitiaan.putExtra("Id", getId);
+                        startActivity(kepanitiaan);
                         break;
-                    case R.id.riwayat_kepanitiaan:
-                        Intent riwayat = new Intent(NavigationActivity.this, RiwayatActivity.class);
+                    case R.id.about:
+                        Intent about = new Intent(AdminNavigationActivity.this, AboutActivity.class);
 
-                        riwayat.putExtra("Id", getId);
-                        startActivity(riwayat);
+                        startActivity(about);
                         break;
                     case R.id.logout:
-                        Intent logout = new Intent(NavigationActivity.this, LoginActivity.class);
+                        Intent logout = new Intent(AdminNavigationActivity.this, LoginActivity.class);
                         startActivity(logout);
                         finish();
                         break;

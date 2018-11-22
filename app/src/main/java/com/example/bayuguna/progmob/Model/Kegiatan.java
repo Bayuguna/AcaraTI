@@ -1,51 +1,110 @@
 package com.example.bayuguna.progmob.Model;
 
-public class Kegiatan {
+import com.google.gson.annotations.SerializedName;
 
-	private String Nama;
-	private String Open_recruitment;
-	private String Description;
-	public int Pamflet;
+//@Generated("com.robohorse.robopojogenerator")
+public class Kegiatan{
 
+	@SerializedName("nama")
+	private String nama;
 
-	public Kegiatan(String nama, String open_recruitment, String description, int pamflet) {
-		Nama = nama;
-		Open_recruitment = open_recruitment;
-		Description = description;
-		Pamflet = pamflet;
+	@SerializedName("updated_at")
+	private String updatedAt;
+
+	@SerializedName("created_at")
+	private String createdAt;
+
+	@SerializedName("id")
+	private int id;
+
+	@SerializedName("pic")
+	private Object pic;
+
+	@SerializedName("tanggal")
+	private String tanggal;
+
+	@SerializedName("deskripsi")
+	private String deskripsi;
+
+	@SerializedName("status")
+	private String status;
+
+	public void setNama(String nama){
+		this.nama = nama;
 	}
 
-	public String getNama() {
-		return Nama;
+	public String getNama(){
+		return nama;
 	}
 
-	public String getOpen_recruitment() {
-		return Open_recruitment;
+	public void setUpdatedAt(String updatedAt){
+		this.updatedAt = updatedAt;
 	}
 
-	public String getDescription() {
-		return Description;
+	public String getUpdatedAt(){
+		return updatedAt;
 	}
 
-	public void setNama(String nama) {
-		Nama = nama;
+	public void setCreatedAt(String createdAt){
+		this.createdAt = createdAt;
 	}
 
-	public void setOpen_recruitment(String open_recruitment) {
-		Open_recruitment = open_recruitment;
+	public String getCreatedAt(){
+		return createdAt;
 	}
 
-	public void setDescription(String description) {
-		Description = description;
+	public void setId(int id){
+		this.id = id;
 	}
 
-	public void setPamflet(int pamflet) {
-		Pamflet = pamflet;
+	public int getId(){
+		return id;
 	}
 
-	public int getPamflet() {
-		return Pamflet;
-
+	public void setPic(Object pic){
+		this.pic = pic;
 	}
 
+	public Object getPic(){
+		return pic;
+	}
+
+	public void setTanggal(String tanggal){
+		this.tanggal = tanggal;
+	}
+
+	public String getTanggal(){
+		return tanggal;
+	}
+
+	public void setDeskripsi(String deskripsi){
+		this.deskripsi = deskripsi;
+	}
+
+	public String getDeskripsi(){
+		return deskripsi;
+	}
+
+	public void setStatus(String status){
+		this.status = status;
+	}
+
+	public String getStatus(){
+		return status;
+	}
+
+	@Override
+ 	public String toString(){
+		return 
+			"Kegiatan{" + 
+			"nama = '" + nama + '\'' + 
+			",updated_at = '" + updatedAt + '\'' + 
+			",created_at = '" + createdAt + '\'' + 
+			",id = '" + id + '\'' + 
+			",pic = '" + pic + '\'' + 
+			",tanggal = '" + tanggal + '\'' + 
+			",deskripsi = '" + deskripsi + '\'' + 
+			",status = '" + status + '\'' + 
+			"}";
+		}
 }

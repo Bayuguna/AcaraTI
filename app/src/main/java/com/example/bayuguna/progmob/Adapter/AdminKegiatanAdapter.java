@@ -5,26 +5,24 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.bayuguna.progmob.Activity.KegiatanActivity;
+import com.example.bayuguna.progmob.Activity.AdminKegiatanActivity;
 import com.example.bayuguna.progmob.Model.ListKegiatan;
 import com.example.bayuguna.progmob.R;
 
 import java.util.List;
 
-public class KegiatanAdapter extends RecyclerView.Adapter<KegiatanAdapter.MyVieHolder> {
-
+public class AdminKegiatanAdapter extends RecyclerView.Adapter<AdminKegiatanAdapter.MyVieHolder> {
 
     private Context kContext;
-//    private List<Kegiatan> kData;
-    private  List<ListKegiatan> kData;
+    private List<ListKegiatan> kData;
 
-//    private List<ListKegiatan> kData;
-    public KegiatanAdapter(Context kContext, List<ListKegiatan> kData) {
+    public AdminKegiatanAdapter(Context kContext, List<ListKegiatan> kData) {
         this.kContext = kContext;
         this.kData = kData;
 
@@ -34,15 +32,13 @@ public class KegiatanAdapter extends RecyclerView.Adapter<KegiatanAdapter.MyVieH
         this.kData = kData;
         notifyDataSetChanged();
     }
-
     @NonNull
     @Override
     public MyVieHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-
         View view;
         LayoutInflater kInflater = LayoutInflater.from(kContext);
         view = kInflater.inflate(R.layout.kegiatan_card,viewGroup,false);
-        return new MyVieHolder(view);
+        return new AdminKegiatanAdapter.MyVieHolder(view);
     }
 
     @Override
@@ -56,9 +52,10 @@ public class KegiatanAdapter extends RecyclerView.Adapter<KegiatanAdapter.MyVieH
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(kContext, KegiatanActivity.class);
+                Intent intent = new Intent(kContext, AdminKegiatanActivity.class);
 
                 intent.putExtra("Id", kData.get(i).getId());
+                Log.d("ID", kData.get(i).getId() + "");
                 intent.putExtra("Title", kData.get(i).getNama());
                 intent.putExtra("Tanggal", kData.get(i).getTanggal());
                 intent.putExtra("Description" ,kData.get(i).getDeskripsi());
@@ -68,8 +65,6 @@ public class KegiatanAdapter extends RecyclerView.Adapter<KegiatanAdapter.MyVieH
                 kContext.startActivity(intent);
             }
         });
-
-
     }
 
     @Override
@@ -80,22 +75,17 @@ public class KegiatanAdapter extends RecyclerView.Adapter<KegiatanAdapter.MyVieH
         return 0;
     }
 
-    public static class MyVieHolder extends RecyclerView.ViewHolder {
-
+    public class MyVieHolder extends RecyclerView.ViewHolder {
         TextView Kegiatan_title;
         TextView Open_rec;
-//        ImageView Kegiatan_pamflet;
+        //        ImageView Kegiatan_pamflet;
         CardView cardView;
-
-
-        public MyVieHolder(View itemView) {
+        public MyVieHolder(@NonNull View itemView) {
             super(itemView);
-
             Kegiatan_title = (TextView) itemView.findViewById(R.id.kegiatan_title);
             Open_rec = (TextView) itemView.findViewById(R.id.open_rec);
 //            Kegiatan_pamflet = (ImageView) itemView.findViewById(R.id.kegiatan_pic);
             cardView = (CardView) itemView.findViewById(R.id.card_recyclerview);
-
         }
     }
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_recyclerview"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:layout_margin="5dp"
+    android:padding="5dp"
+    cardview:cardCornerRadius="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="4dp">
+
+        <TextView
+            android:id="@+id/nama_peserta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:text="Nama"/>
+
+        <TextView
+            android:id="@+id/nim_peserta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:textSize="11sp"
+            android:gravity="center"
+            android:textColor="#000"
+            android:text="Nim"/>
+
+        <TextView
+            android:id="@+id/sie_peserta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:textSize="11sp"
+            android:gravity="center"
+            android:textColor="#000"
+            android:text="Sie"/>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

@@ -34,7 +34,6 @@ public class RetrofitBuilder {
                         request = builder.build();
 
                         return chain.proceed(request);
-
                     }
                 });
 
@@ -44,7 +43,6 @@ public class RetrofitBuilder {
 
         return builder.build();
     }
-
 
 
     private static Retrofit buildRetrofit(OkHttpClient client){

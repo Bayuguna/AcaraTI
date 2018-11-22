@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.bayuguna.progmob.Model.ListKegiatan;
+import com.example.bayuguna.progmob.Model.RiwayatKepanitiaanResponse;
 import com.example.bayuguna.progmob.R;
 
 import java.util.List;
@@ -18,13 +18,13 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.MyVieHol
 
     private Context rContext;
 //    private List<Riwayat> rData;
-private List<ListKegiatan> rData;
-    public RiwayatAdapter(Context rContext, List<ListKegiatan> rData) {
+    private List<RiwayatKepanitiaanResponse> rData;
+    public RiwayatAdapter(Context rContext, List<RiwayatKepanitiaanResponse> rData) {
         this.rContext = rContext;
         this.rData = rData;
     }
 
-    public void setKegiatan(List<ListKegiatan> rData) {
+    public void setRiwayat(List<RiwayatKepanitiaanResponse> rData) {
         this.rData = rData;
         notifyDataSetChanged();
     }
@@ -42,10 +42,9 @@ private List<ListKegiatan> rData;
     @Override
     public void onBindViewHolder(@NonNull MyVieHolder myVieHolder, final int i) {
 
-        myVieHolder.Title.setText(rData.get(i).getKegiatan().getNama());
-//        myVieHolder.Sie.setText(rData.get(i).getSie());
-        myVieHolder.Sie.setText(rData.get(i).getSie().getNama());
-        myVieHolder.Tanggal.setText(rData.get(i).getKegiatan().getTanggal());
+        myVieHolder.Title.setText(rData.get(i).getUsers().getName());
+        myVieHolder.Sie.setText(rData.get(i).getUsers().getTelp());
+        myVieHolder.Tanggal.setText(rData.get(i).getUsers().getAlamat());
 
 
     }
@@ -58,10 +57,9 @@ private List<ListKegiatan> rData;
         return 0;
     }
 
-    public static class MyVieHolder extends RecyclerView.ViewHolder {
+    public class MyVieHolder extends RecyclerView.ViewHolder {
 
         TextView Title;
-//        TextView Sie;
         TextView Sie;
         TextView Tanggal;
 
@@ -70,7 +68,6 @@ private List<ListKegiatan> rData;
             super(itemView);
 
             Title = (TextView) itemView.findViewById(R.id.riwayat_title);
-//            Sie = (TextView) itemView.findViewById(R.id.riwayat_sie);
             Sie = (TextView) itemView.findViewById(R.id.riwayat_sie);
             Tanggal = (TextView) itemView.findViewById(R.id.riwayat_tanggal);
 
