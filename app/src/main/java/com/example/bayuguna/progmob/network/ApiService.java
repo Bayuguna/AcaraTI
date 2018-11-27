@@ -6,8 +6,10 @@ import com.example.bayuguna.progmob.Model.Kegiatans;
 import com.example.bayuguna.progmob.Model.Peserta;
 import com.example.bayuguna.progmob.Model.ListKegiatan;
 import com.example.bayuguna.progmob.Model.Riwayat;
+import com.example.bayuguna.progmob.Model.RiwayatKepanitiaan;
 import com.example.bayuguna.progmob.Model.RiwayatKepanitiaanResponse;
 import com.example.bayuguna.progmob.Model.Sie;
+import com.example.bayuguna.progmob.Model.SieSpinner;
 import com.example.bayuguna.progmob.Model.User;
 import com.example.bayuguna.progmob.Model.UserResponse;
 
@@ -62,8 +64,11 @@ public interface ApiService {
             @Field("alamat") String alamat
     );
 
-    @GET("showKegiatan")
+    @GET("showKegiatanAdmin")
     Call<List<ListKegiatan>> getKegiatan();
+
+    @GET("showKegiatan")
+    Call<List<ListKegiatan>> getKegiatanMember();
 
 //    @GET("showDetKegiatan/{id}")
 //    Call<List<ListKegiatan>> getDetKegiatans(
@@ -94,7 +99,20 @@ public interface ApiService {
 
     @GET("peserta/{id}")
     Call<List<Peserta>> getPeserta(
-            @Path("id") int id);
+            @Path("id") int id
+    );
 
+    @GET("sie/{id}")
+    Call<List<SieSpinner>> getSieSpinner(
+            @Path("id") int id
+    );
+
+
+    @FormUrlEncoded
+    @POST("ikut_kepanitiaan")
+    Call<RiwayatKepanitiaan> ikutKepanitiaan(
+            @Field("id_det_kegiatan") int id_det_kegiatan,
+            @Field("alasan") String alasan
+    );
 
 }

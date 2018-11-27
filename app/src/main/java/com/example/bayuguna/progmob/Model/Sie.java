@@ -106,17 +106,17 @@ public class Sie {
 
 	@Override
  	public String toString(){
-		return 
+		return
 			"Sie{" +
-			"updated_at = '" + updatedAt + '\'' + 
-			",job_desc = '" + jobDesc + '\'' + 
-			",kuota = '" + kuota + '\'' + 
-			",created_at = '" + createdAt + '\'' + 
-			",id = '" + id + '\'' + 
-			",nama_koor = '" + namaKoor + '\'' + 
-			",line_id = '" + lineId + '\'' + 
-			",id_kegiatan = '" + idKegiatan + '\'' + 
-			",sie = '" + sie + '\'' + 
+			"updated_at = '" + updatedAt + '\'' +
+			",job_desc = '" + jobDesc + '\'' +
+			",kuota = '" + kuota + '\'' +
+			",created_at = '" + createdAt + '\'' +
+			",id = '" + id + '\'' +
+			",nama_koor = '" + namaKoor + '\'' +
+			",line_id = '" + lineId + '\'' +
+			",id_kegiatan = '" + idKegiatan + '\'' +
+			",sie = '" + sie + '\'' +
 			"}";
 		}
 }

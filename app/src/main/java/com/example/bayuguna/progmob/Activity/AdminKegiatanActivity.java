@@ -47,6 +47,8 @@ public class AdminKegiatanActivity extends  AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         nama = (TextView) findViewById(R.id.kegiatan_title);
         description = (TextView) findViewById(R.id.kegiatan_desc);
@@ -71,11 +73,7 @@ public class AdminKegiatanActivity extends  AppCompatActivity {
         myrey.setLayoutManager(new GridLayoutManager(this, 3));
         myrey.setAdapter(myadapter);
 
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         init(id_kegiatan);
-
     }
 
     public void getData(int id_kegiatan){
@@ -83,14 +81,14 @@ public class AdminKegiatanActivity extends  AppCompatActivity {
         call.enqueue(new Callback<List<Sie>>() {
             @Override
             public void onResponse(Call<List<Sie>> call, Response<List<Sie>> response) {
-                Toast.makeText(AdminKegiatanActivity.this, "Welcome " + response.body(),Toast.LENGTH_LONG).show();
                 lists = response.body();
+//                Log.d("sie",response.body().toString());
                 myadapter.setKegiatan(lists);
             }
 
             @Override
             public void onFailure(Call<List<Sie>> call, Throwable t) {
-
+                Toast.makeText(AdminKegiatanActivity.this, "Lost Connection", Toast.LENGTH_LONG).show();
             }
         });
 

@@ -80,7 +80,7 @@ public class NavigationActivity extends AppCompatActivity {
         TextView nama = (TextView) header.findViewById(R.id.nama_header_1);
 
 //        listkegiatan = new ArrayList<>();
-//        listkegiatan.add(new Kegiatan("Sporti", "11-11-2018", "Spo rt TI koskdokdoksorjosdf ojdfosfoksf sofkoskfoksd osekfoskeofksd fspfkpskfpse spfskdfpksepk sfkpskfsekoskf fsojfosfoejfmso koadkoaksdo oakdoaksodka oakdoakodak oakdoakosd oakdoaksdoka oakdoaksod aodkoakdo aokdoaksodk aodkaoskdo", R.drawable.header_navigation));
+//        listkegiatan.add(new Kegiatan("Sporti", "11-11-2018", "Sport TI koskdokdoksorjosdf ojdfosfoksf sofkoskfoksd osekfoskeofksd fspfkpskfpse spfskdfpksepk sfkpskfsekoskf fsojfosfoejfmso koadkoaksdo oakdoaksodka oakdoakodak oakdoakosd oakdoaksdoka oakdoaksod aodkoakdo aokdoaksodk aodkaoskdo", R.drawable.header_navigation));
 //        listkegiatan.add(new Kegiatan("ITCC", "11-11-2018", "ITCC adalah", R.drawable.itcc));
 //        listkegiatan.add(new Kegiatan("IT-Esega", "11-11-2018", "E-sport Game", R.drawable.itesega));
 //        listkegiatan.add(new Kegiatan("Semnas TI", "11-11-2018", "Seminar Nasional", R.drawable.semnas_ti));
@@ -122,16 +122,13 @@ public class NavigationActivity extends AppCompatActivity {
                     lists = response.body();
 //                    Log.d(TAG, "onResponse: "+lists);
                     myadapter.setKegiatan(lists);
-
                 } else {
                     Toast.makeText(NavigationActivity.this, "Error",Toast.LENGTH_LONG).show();
                 }
-
             }
-
             @Override
             public void onFailure(Call<List<ListKegiatan>> call, Throwable t) {
-                Toast.makeText(NavigationActivity.this, "Connection Lost",Toast.LENGTH_LONG).show();
+                Toast.makeText(NavigationActivity.this, "Lost Connection",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -147,31 +144,15 @@ public class NavigationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                callUser = service.userlogin();
-//                callUser.enqueue(new Callback<User>() {
-//                    @Override
-//                    public void onResponse(Call<User> call, Response<User> response) {
-//                        Log.d(TAG, "onResponse: " + response.body());
-//                        Toast.makeText(NavigationActivity.this, "Berhasil Oyy" + response.body() ,Toast.LENGTH_LONG).show();;
                 Intent intent = new Intent(NavigationActivity.this, ProfileActivity.class);
                 intent.putExtra("Id", getId);
-//                        intent.putExtra("Id", response.body().getId());
-//                        intent.putExtra("Nama", response.body().getName());
                 startActivity(intent);
             }
 
-//                    @Override
-//                    public void onFailure(Call<User> call, Throwable t) {
-//
-//                    }
-//                });
-//
-//            }
         });
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-
 
                 int id = menuItem.getItemId();
                 switch (id) {
@@ -194,6 +175,13 @@ public class NavigationActivity extends AppCompatActivity {
                         riwayat.putExtra("Id", getId);
                         startActivity(riwayat);
                         break;
+
+                    case R.id.about:
+                        Intent about = new Intent(NavigationActivity.this, AboutActivity.class);
+
+                        startActivity(about);
+                        break;
+
                     case R.id.logout:
                         Intent logout = new Intent(NavigationActivity.this, LoginActivity.class);
                         startActivity(logout);

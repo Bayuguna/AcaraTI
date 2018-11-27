@@ -30,10 +30,8 @@ public class RiwayatActivity extends  AppCompatActivity {
     RiwayatAdapter myadapter;
 
     ApiService service;
-//    Call<List<Riwayat>> call;
 
     Call<List<RiwayatKepanitiaanResponse>> call;
-//    List<Riwayat> lists = new ArrayList<>();
     List<RiwayatKepanitiaanResponse> lists;
     private static final String TAG = "RiwayatActivity";
 
@@ -81,47 +79,24 @@ public class RiwayatActivity extends  AppCompatActivity {
 
     }
 
-//    public void getData(){
-//        call = service.getAllKegiatan();
-//        call.enqueue(new Callback<List<Riwayat>>() {
-//            @Override
-//            public void onResponse(Call<List<Riwayat>> call, Response<List<Riwayat>> response) {
-//                if (response.isSuccessful()) {
-//                    lists = response.body();
-////                    Log.d(TAG, "onResponse: "+lists);
-//                    myadapter.setKegiatan(lists);
-//
-//                } else {
-//                    Toast.makeText(RiwayatActivity.this, "Error Cuy",Toast.LENGTH_LONG).show();
-//                }
-//            }
-//            @Override
-//            public void onFailure(Call<List<Riwayat>> call, Throwable t) {
-//                Toast.makeText(RiwayatActivity.this, "Gagal Oyy",Toast.LENGTH_LONG).show();
-//            }
-//        });
-//
-//    }
-
     public void getData(int getId){
         call = service.getRiwayat(getId);
         call.enqueue(new Callback<List<RiwayatKepanitiaanResponse>>() {
             @Override
             public void onResponse(Call<List<RiwayatKepanitiaanResponse>> call, Response<List<RiwayatKepanitiaanResponse>> response) {
-                Toast.makeText(RiwayatActivity.this, "Berhasil Yeay",Toast.LENGTH_LONG).show();
                 if (response.isSuccessful()) {
                     lists = response.body();
 //                    Log.d(TAG, "onResponse: "+lists);
                     myadapter.setRiwayat(lists);
 
                 } else {
-                    Toast.makeText(RiwayatActivity.this, "Error Cuy",Toast.LENGTH_LONG).show();
+                    Toast.makeText(RiwayatActivity.this, response.message(),Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<RiwayatKepanitiaanResponse>> call, Throwable t) {
-
+                Toast.makeText(RiwayatActivity.this, "Lost Connection",Toast.LENGTH_LONG).show();
             }
         });
     }

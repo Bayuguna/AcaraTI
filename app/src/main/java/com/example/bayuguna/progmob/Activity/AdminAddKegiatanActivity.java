@@ -62,11 +62,9 @@ public class AdminAddKegiatanActivity extends AppCompatActivity {
                                 startActivity(intent);
 
                             }else {
-                                Toast.makeText(AdminAddKegiatanActivity.this, "Tidak semudah itu Aguero",Toast.LENGTH_LONG).show();
+                                Toast.makeText(AdminAddKegiatanActivity.this, response.message(),Toast.LENGTH_LONG).show();
                             }
-
                         }
-
                     }
 
                     @Override

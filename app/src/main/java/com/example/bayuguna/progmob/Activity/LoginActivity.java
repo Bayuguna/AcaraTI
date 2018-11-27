@@ -110,8 +110,6 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Isi dulu fieldnya",Toast.LENGTH_LONG).show();
                         }else {
                             if (response.isSuccessful()){
-//                                Toast.makeText(LoginActivity.this, "This" + response.body().getDataUser() ,Toast.LENGTH_LONG).show();
-
                                 getSharedPreferences("login", Context.MODE_PRIVATE)
                                         .edit()
                                         .putString("token", response.body().getToken())
@@ -119,7 +117,6 @@ public class LoginActivity extends AppCompatActivity {
 
                                 if (response.body().getDataUser().getAs().equals("Member")){
                                     Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
-//                                    Toast.makeText(LoginActivity.this, "Welcome " + response.body().getDataUser().getName(),Toast.LENGTH_LONG).show();
 
                                     intent.putExtra("Id", response.body().getDataUser().getId());
                                     intent.putExtra("Nama", response.body().getDataUser().getName());
@@ -139,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                             }else {
-                                Toast.makeText(LoginActivity.this, "Tidak semudah itu ferguso",Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, response.message(),Toast.LENGTH_LONG).show();
                             }
 
                         }
@@ -148,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<UserResponse<User>> call, Throwable t) {
-                        Toast.makeText(LoginActivity.this, "Connection Lost",Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "Lost Connection",Toast.LENGTH_LONG).show();
                     }
                 });
             }

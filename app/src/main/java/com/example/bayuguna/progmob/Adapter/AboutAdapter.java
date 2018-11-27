@@ -6,13 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bayuguna.progmob.Model.About;
 import com.example.bayuguna.progmob.R;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.MyViewHolder> {
 
@@ -52,7 +53,7 @@ public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView nama,nim;
-        ImageView foto;
+        CircleImageView foto;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

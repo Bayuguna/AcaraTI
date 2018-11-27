@@ -6,11 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bayuguna.progmob.Adapter.DetailKegiatanAdapter;
 import com.example.bayuguna.progmob.Model.Sie;
@@ -29,7 +31,7 @@ public class KegiatanActivity extends  AppCompatActivity {
 
     private TextView nama,open_rec,description,sie;
     private ImageView pamflet;
-    private Button login;
+    private Button ikut;
 
     RecyclerView myrey;
     DetailKegiatanAdapter myadapter;
@@ -37,20 +39,6 @@ public class KegiatanActivity extends  AppCompatActivity {
     ApiService service;
     Call<List<Sie>> call;
     List<Sie> lists =  new ArrayList<>();
-
-    public void init() {
-        login = (Button) findViewById(R.id.register);
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(KegiatanActivity.this, RegisterKepanitianActivity.class);
-
-                startActivity(intent);
-            }
-        });
-
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,31 +50,23 @@ public class KegiatanActivity extends  AppCompatActivity {
 
 
         nama = (TextView) findViewById(R.id.kegiatan_title);
-//        open_rec = (TextView) findViewById(R.id.kegitan_open_rec);
         description = (TextView) findViewById(R.id.kegiatan_desc);
         pamflet = (ImageView) findViewById(R.id.kegiatan_pic);
-//        sie = (TextView) findViewById(R.id.sie);
 
         service = RetrofitBuilder.creatService(ApiService.class);
 
         Intent intent = getIntent();
         int id_kegiatan = intent.getExtras().getInt("Id");
         String title = intent.getExtras().getString("Title");
-//        String tanggal = intent.getExtras().getString("Tanggal");
         String desc = intent.getExtras().getString("Description");
-//        String sie1 = intent.getExtras().getString("Sie");
-//        int image = intent.getExtras().getInt("Pamflet");
 
         nama.setText(title);
-//        open_rec.setText(tanggal);
         description.setText(desc);
-//        sie.setText(sie1);
-//        pamflet.setImageResource(image);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        init();
+        init(id_kegiatan);
         lists = new ArrayList<>();
         getData(id_kegiatan);
 
@@ -95,6 +75,20 @@ public class KegiatanActivity extends  AppCompatActivity {
         myrey.setLayoutManager(new GridLayoutManager(this, 3));
         myrey.setAdapter(myadapter);
 
+    }
+
+    public void init(final int id_kegiatan) {
+        ikut = (Button) findViewById(R.id.register);
+        ikut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(KegiatanActivity.this, RegisterKepanitianActivity.class);
+
+                intent.putExtra("Id_kegiatan", id_kegiatan);
+                Log.d("IDS Kegiatan", id_kegiatan + "");
+                startActivity(intent);
+            }
+        });
 
 
     }
@@ -107,12 +101,11 @@ public class KegiatanActivity extends  AppCompatActivity {
                 lists = response.body();
 //                    Log.d(TAG, "onResponse: "+lists);
                 myadapter.setKegiatan(lists);
-
             }
 
             @Override
             public void onFailure(Call<List<Sie>> call, Throwable t) {
-
+                Toast.makeText(KegiatanActivity.this, "Lost Connection", Toast.LENGTH_LONG).show();
             }
         });
 

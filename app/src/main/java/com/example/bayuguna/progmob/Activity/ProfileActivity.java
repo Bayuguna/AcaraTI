@@ -45,12 +45,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         getId = intent.getExtras().getInt("Id");
-        getProfile(getId);
-        editUser();
+        getData(getId);
+        editData();
 
     }
 
-    public void getProfile(int getId) {
+    public void getData(int getId) {
         userCall = service.userlogin(getId);
         userCall.enqueue(new Callback<User>() {
             @Override
@@ -71,7 +71,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    public void editUser(){
+    public void editData(){
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,13 +89,13 @@ public class ProfileActivity extends AppCompatActivity {
                         if (response.isSuccessful()){
                             Toast.makeText(ProfileActivity.this,"Profile Berhasil Diperbaharui" , Toast.LENGTH_LONG).show();
                         }else {
-                            Toast.makeText(ProfileActivity.this,"Profile Gagal Diperbaharui" , Toast.LENGTH_LONG).show();
+                            Toast.makeText(ProfileActivity.this,response.message(), Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
-                        Toast.makeText(ProfileActivity.this,"Connection Error", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ProfileActivity.this,"Lost Connection", Toast.LENGTH_LONG).show();
                     }
                 });
 

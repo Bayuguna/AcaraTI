@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class RiwayatKepanitiaan{
 
 	@SerializedName("id_det_kegiatan")
-	private int idDetKegiatan;
+	private String idDetKegiatan;
 
 	@SerializedName("id_users")
 	private int idUsers;
@@ -14,22 +14,19 @@ public class RiwayatKepanitiaan{
 	private int id;
 
 	@SerializedName("tanggal_daftar")
-	private String tanggalDaftar;
+	private TanggalDaftar tanggalDaftar;
 
 	@SerializedName("status_kepanitiaan")
 	private String statusKepanitiaan;
 
-	@SerializedName("users")
-	private User users;
+	@SerializedName("alasan")
+	private String alasan;
 
-	@SerializedName("det_kegiatan")
-	private Object detKegiatan;
-
-	public void setIdDetKegiatan(int idDetKegiatan){
+	public void setIdDetKegiatan(String idDetKegiatan){
 		this.idDetKegiatan = idDetKegiatan;
 	}
 
-	public int getIdDetKegiatan(){
+	public String getIdDetKegiatan(){
 		return idDetKegiatan;
 	}
 
@@ -49,11 +46,11 @@ public class RiwayatKepanitiaan{
 		return id;
 	}
 
-	public void setTanggalDaftar(String tanggalDaftar){
+	public void setTanggalDaftar(TanggalDaftar tanggalDaftar){
 		this.tanggalDaftar = tanggalDaftar;
 	}
 
-	public String getTanggalDaftar(){
+	public TanggalDaftar getTanggalDaftar(){
 		return tanggalDaftar;
 	}
 
@@ -65,20 +62,12 @@ public class RiwayatKepanitiaan{
 		return statusKepanitiaan;
 	}
 
-	public void setUsers(User users){
-		this.users = users;
+	public void setAlasan(String alasan){
+		this.alasan = alasan;
 	}
 
-	public User getUsers(){
-		return users;
-	}
-
-	public void setDetKegiatan(Object detKegiatan){
-		this.detKegiatan = detKegiatan;
-	}
-
-	public Object getDetKegiatan(){
-		return detKegiatan;
+	public String getAlasan(){
+		return alasan;
 	}
 
 	@Override
@@ -90,8 +79,7 @@ public class RiwayatKepanitiaan{
 			",id = '" + id + '\'' + 
 			",tanggal_daftar = '" + tanggalDaftar + '\'' + 
 			",status_kepanitiaan = '" + statusKepanitiaan + '\'' + 
-			",users = '" + users + '\'' + 
-			",det_kegiatan = '" + detKegiatan + '\'' + 
+			",alasan = '" + alasan + '\'' + 
 			"}";
 		}
 }

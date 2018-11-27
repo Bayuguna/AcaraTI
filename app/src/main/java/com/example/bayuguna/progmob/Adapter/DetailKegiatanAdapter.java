@@ -46,6 +46,7 @@ public class DetailKegiatanAdapter extends RecyclerView.Adapter<DetailKegiatanAd
 
 
 
+
     }
 
     @Override

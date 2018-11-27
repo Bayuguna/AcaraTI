@@ -77,7 +77,7 @@ public class SignUpActivity extends AppCompatActivity {
                                         startActivity(intent);
 
                                     }else {
-                                        Toast.makeText(SignUpActivity.this, "Tidak semudah itu Aguero",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(SignUpActivity.this, response.message(),Toast.LENGTH_LONG).show();
                                     }
 
                                 }
@@ -87,31 +87,10 @@ public class SignUpActivity extends AppCompatActivity {
                             @Override
                             public void onFailure(Call<User> call, Throwable t) {
                                 Log.w(TAG, "onFailure: " + t.getMessage() );
-                                Toast.makeText(SignUpActivity.this, "Gagal Register",Toast.LENGTH_LONG).show();
+                                Toast.makeText(SignUpActivity.this, "Lost Connection",Toast.LENGTH_LONG).show();
                             }
                         });
 
-
-//                        if (insert_nim.getText().toString().isEmpty() && insert_nama.getText().toString().isEmpty() && insert_username.getText().toString().isEmpty() && insert_password.getText().toString().isEmpty()){
-//                            Toast.makeText(SignUpActivity.this, "Please Fill The Box",Toast.LENGTH_LONG).show();
-//                        }else{
-//                            boolean isInserted = myDb.insertData( insert_nim.getText().toString(),
-//                                    insert_nama.getText().toString(),
-//                                    insert_gmail.getText().toString(),
-//                                    insert_telp.getText().toString(),
-//                                    insert_alamat.getText().toString(),
-//                                    insert_username.getText().toString(),
-//                                    insert_password.getText().toString());
-//
-//                            if (isInserted == true)
-//                                Toast.makeText(SignUpActivity.this, "You are Registered",Toast.LENGTH_LONG).show();
-//                            else
-//                                Toast.makeText(SignUpActivity.this, "You Not Registered",Toast.LENGTH_LONG).show();
-//
-//                            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-//
-//                            startActivity(intent);
-//                        }
                     }
                 }
         );

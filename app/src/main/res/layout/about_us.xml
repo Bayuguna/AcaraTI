@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context=".Activity.AboutActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +22,38 @@
             android:src="@drawable/infoti"
             android:layout_centerHorizontal="true"/>
     </RelativeLayout>
+    <!--<android.support.v4.widget.NestedScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:padding="2dp">-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Tentang Info TI"
+            android:textSize="32dp"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/line_back">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center"
+                android:text="          Kegiatan yang dilaksanakan oleh Himpunan Mahasiswa Teknologi Informasi cukup banyak, namun kebanyakan mahasiswa kurang mengetahui informasi kegiatan apa saja yang diprogramkan sehingga mahasiswa menjadi ragu untuk mendaftar. Hal ini mengakibatkan pengurus kepanitiaan sulit untuk mendapatkan calon anggota, sehingga sulit untuk mendapatkan anggota yang berkompeten. Oleh karena itu InfoTI hadir untuk mengatasi masalah yang dihadapi selama ini baik dari sisi calon anggota maupun pengurus inti. Solusi yang diberikan oleh InfoTI adalah sebagai berikut."/>
+
+        </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Profile"
+        android:textSize="32dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,9 +64,11 @@
             android:id="@+id/recyclerview_about"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:overScrollMode="never"
             android:layout_below="@+id/action_bar">
 
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
+    <!--</android.support.v4.widget.NestedScrollView>-->
 
 </LinearLayout>
