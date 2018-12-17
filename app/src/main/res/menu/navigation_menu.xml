@@ -8,10 +8,10 @@
             android:icon="@drawable/hexagon"
             />
 
-        <item
-            android:title="Pengumuman"
-            android:id="@+id/pengumuman"
-            android:icon="@drawable/pemberitahuan"/>
+        <!--<item-->
+            <!--android:title="Pengumuman"-->
+            <!--android:id="@+id/pengumuman"-->
+            <!--android:icon="@drawable/pemberitahuan"/>-->
 
         <item
             android:title="Riwayat Kepanitiaan"

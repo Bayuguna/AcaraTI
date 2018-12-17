@@ -94,7 +94,7 @@ public class SignUpActivity extends AppCompatActivity {
                             @Override
                             public void onFailure(Call<User> call, Throwable t) {
                                 Log.w(TAG, "onFailure: " + t.getMessage() );
-                                Toast.makeText(SignUpActivity.this, "Lost Connection",Toast.LENGTH_LONG).show();
+                                Toast.makeText(SignUpActivity.this, "You Are Offline",Toast.LENGTH_LONG).show();
                             }
                         });
 

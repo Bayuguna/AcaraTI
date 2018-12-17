@@ -82,7 +82,7 @@ public class AdminKegiatanActivity extends  AppCompatActivity {
 
         nama.setText(title);
         description.setText(desc);
-        String url = "http://172.17.100.2:8000/"+getPic;
+        String url = "http://192.168.43.200:8000/"+getPic;
         Glide.with(AdminKegiatanActivity.this).load(url).into(pamflet);
 
         lists = new ArrayList<>();
@@ -133,7 +133,7 @@ public class AdminKegiatanActivity extends  AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<DetKegiatan>> call, Throwable t) {
-                Toast.makeText(AdminKegiatanActivity.this, "Lost Connection", Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminKegiatanActivity.this, "You Are Offline", Toast.LENGTH_LONG).show();
                 sqlite(id_kegiatan);
             }
         });

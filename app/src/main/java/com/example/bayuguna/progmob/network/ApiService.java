@@ -56,13 +56,6 @@ public interface ApiService {
     @FormUrlEncoded
     Call<UserResponse<User>> getUser(@Query("token") String token);
 
-//    @GET("userLogin/{id}")
-//    Call<UserResponse<User>> userlogin(
-//            @Path("id") int id
-//    );
-
-//    @GET("kegiatan")
-
     @Multipart
     @POST("editUser/{id}")
     Call<User> editUser(
@@ -73,7 +66,6 @@ public interface ApiService {
             @Part("telp") RequestBody telp,
             @Part("alamat") RequestBody alamat
     );
-//    Call<List<Riwayat>> getAllKegiatan();
 
     @Multipart
     @POST("editProfileUser/{id}")
@@ -98,14 +90,6 @@ public interface ApiService {
 
     @GET("showKegiatanBerlangsung")
     Call<List<ListKegiatan>> getKegiatanBerlangsung();
-//
-//    @GET("showKegiatan")
-//    Call<List<ListKegiatan>> getKegiatanMember();
-
-//    @GET("showDetKegiatan/{id}")
-//    Call<List<ListKegiatan>> getDetKegiatans(
-//            @Path("id") int id
-//    );
 
     @GET("showDetKegiatan/{id}")
     Call<List<DetKegiatan>> getDetKegiatan(
@@ -165,12 +149,5 @@ public interface ApiService {
     Call<DetKegiatanItem> deleteDetKegiatan(
             @Path("id") int id
     );
-
-//    @Multipart
-//    @POST("updateFotoProfille")
-//    Call<User> updateFotoProfille(
-//            @Part MultipartBody.Part profile_pic,
-//            @Part("token") RequestBody token
-//    );
 
 }

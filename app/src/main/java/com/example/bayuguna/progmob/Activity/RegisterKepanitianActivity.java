@@ -123,7 +123,7 @@ public class RegisterKepanitianActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<SieSpinner>> call, Throwable t) {
-                Toast.makeText(RegisterKepanitianActivity.this, "Lost Connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterKepanitianActivity.this, "You Are Offline", Toast.LENGTH_SHORT).show();
             }
         });
     }

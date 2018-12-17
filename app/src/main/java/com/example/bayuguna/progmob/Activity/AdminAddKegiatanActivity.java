@@ -113,7 +113,7 @@ public class AdminAddKegiatanActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Kegiatans> call, Throwable t) {
-                        Toast.makeText(AdminAddKegiatanActivity.this, "Lost Connection",Toast.LENGTH_LONG).show();
+                        Toast.makeText(AdminAddKegiatanActivity.this, "You Are Offline",Toast.LENGTH_LONG).show();
                     }
                 });
             }

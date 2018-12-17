@@ -98,7 +98,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         if(pic != "missing"){
-            String url = "http://172.17.100.2:8000/"+pic;
+            String url = "http://192.168.43.200:8000/"+pic;
             Glide.with(ProfileActivity.this).load(url).into(img);
         }
 
@@ -145,12 +145,13 @@ public class ProfileActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
-                        Toast.makeText(ProfileActivity.this,"Lost Connection", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ProfileActivity.this,"You Are Offline", Toast.LENGTH_LONG).show();
                     }
                 });
     }
 
     public void editProfile(){
+                String shared_pic = nama.getText().toString();
                 String shared_name = nama.getText().toString();
                 String shared_email = gmail.getText().toString();
                 String shared_telp = telp.getText().toString();
@@ -158,6 +159,7 @@ public class ProfileActivity extends AppCompatActivity {
                 SharedPreferences sharedPref = getSharedPreferences("login", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("user_name", shared_name);
+                editor.putString("user_pic", shared_name);
                 editor.putString("user_email", shared_email);
                 editor.putString("user_telp", shared_telp);
                 editor.putString("user_alamat", shared_alamat);

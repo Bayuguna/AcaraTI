@@ -99,12 +99,13 @@ public class NavigationActivity extends AppCompatActivity {
 
 
         service = RetrofitBuilder.creatService(ApiService.class);
+        myDb = new DatabaseHelper(this);
+        userPreference = this.getSharedPreferences("login", Context.MODE_PRIVATE);
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         View header = navigationView.getHeaderView(0);
         nama = (TextView) header.findViewById(R.id.nama_header_1);
         img = (ImageView) header.findViewById(R.id.pic_nav);
-
-        userPreference = this.getSharedPreferences("login", Context.MODE_PRIVATE);
 
         // get token from shared preference
         token = userPreference.getString("token", "missing");
@@ -121,7 +122,7 @@ public class NavigationActivity extends AppCompatActivity {
         }
 
         if(pic != "missing"){
-            String url = "http://172.17.100.2:8000/"+pic;
+            String url = "http://192.168.43.200:8000/"+pic;
             Glide.with(NavigationActivity.this).load(url).into(img);
         }
 
@@ -138,7 +139,6 @@ public class NavigationActivity extends AppCompatActivity {
         myrey.setLayoutManager(new GridLayoutManager(this, 2));
         myrey.setAdapter(myadapter);
 
-        myDb = new DatabaseHelper(this);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.navigation_dashboard);
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -162,13 +162,35 @@ public class NavigationActivity extends AppCompatActivity {
 //                    Log.d(TAG, "onResponse: "+lists);
 
                     myadapter.setKegiatan(lists);
+
+                    myDb.deleteKegiatan("kegiatan_table");
+
+                    //request is valid and success
+                    for(ListKegiatan listKegiatan : response.body()){
+
+
+                        boolean isInserted = myDb.insertKegiatan(
+                                listKegiatan.getPic(),
+                                listKegiatan.getNama(),
+                                listKegiatan.getTanggal(),
+                                listKegiatan.getDeskripsi(),
+                                listKegiatan.getStatus()
+
+                        );
+
+                        if(!isInserted){
+                            Toast.makeText(NavigationActivity.this, "Cannot Syncron",Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(NavigationActivity.this, "Syncronize",Toast.LENGTH_LONG).show();
+                        }
+                    }
                 } else {
                     Toast.makeText(NavigationActivity.this, "Error",Toast.LENGTH_LONG).show();
                 }
             }
             @Override
             public void onFailure(Call<List<ListKegiatan>> call, Throwable t) {
-                Toast.makeText(NavigationActivity.this, "Lost Connection",Toast.LENGTH_LONG).show();
+                Toast.makeText(NavigationActivity.this, "You Are Offline",Toast.LENGTH_LONG).show();
                 sqlite();
             }
         });
@@ -241,10 +263,10 @@ public class NavigationActivity extends AppCompatActivity {
                         kegiatan.putExtra("Nama", nama.getText().toString());
                         startActivity(kegiatan);
                         break;
-                    case R.id.pengumuman:
-                        Intent pengumuman = new Intent(NavigationActivity.this, ProfileActivity.class);
-                        startActivity(pengumuman);
-                        break;
+//                    case R.id.pengumuman:
+//                        Intent pengumuman = new Intent(NavigationActivity.this, ProfileActivity.class);
+//                        startActivity(pengumuman);
+//                        break;
                     case R.id.riwayat_kepanitiaan:
                         Intent riwayat = new Intent(NavigationActivity.this, RiwayatActivity.class);
                         startActivity(riwayat);

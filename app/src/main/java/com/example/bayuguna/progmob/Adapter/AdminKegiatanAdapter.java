@@ -46,7 +46,7 @@ public class AdminKegiatanAdapter extends RecyclerView.Adapter<AdminKegiatanAdap
     @Override
     public void onBindViewHolder(@NonNull MyVieHolder myVieHolder, final int i) {
 
-        String url = "http://172.17.100.2:8000/"+kData.get(i).getPic();
+        String url = "http://192.168.43.200:8000/"+kData.get(i).getPic();
         Glide.with(myVieHolder.itemView).load(url).into(myVieHolder.Kegiatan_pamflet);
 
         myVieHolder.Kegiatan_title.setText(kData.get(i).getNama());

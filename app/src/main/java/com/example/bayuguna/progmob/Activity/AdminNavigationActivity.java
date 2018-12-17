@@ -75,25 +75,18 @@ public class AdminNavigationActivity extends AppCompatActivity {
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe);
 
-        service = RetrofitBuilder.creatService(ApiService.class);
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         View header = navigationView.getHeaderView(0);
         nama = (TextView) header.findViewById(R.id.nama_header_1);
         img = header.findViewById(R.id.pic_nav);
 
+        //API Service
+        service = RetrofitBuilder.creatService(ApiService.class);
+
+        //SQLite Database
         myDb = new DatabaseHelper(this);
 
-
-
-//        listkegiatan = new ArrayList<>();
-//        listkegiatan.add(new Kegiatan("Sporti", "11-11-2018", "Spo rt TI koskdokdoksorjosdf ojdfosfoksf sofkoskfoksd osekfoskeofksd fspfkpskfpse spfskdfpksepk sfkpskfsekoskf fsojfosfoejfmso koadkoaksdo oakdoaksodka oakdoakodak oakdoakosd oakdoaksdoka oakdoaksod aodkoakdo aokdoaksodk aodkaoskdo", R.drawable.header_navigation));
-//        listkegiatan.add(new Kegiatan("ITCC", "11-11-2018", "ITCC adalah", R.drawable.itcc));
-//        listkegiatan.add(new Kegiatan("IT-Esega", "11-11-2018", "E-sport Game", R.drawable.itesega));
-//        listkegiatan.add(new Kegiatan("Semnas TI", "11-11-2018", "Seminar Nasional", R.drawable.semnas_ti));
-//        listkegiatan.add(new Kegiatan("Musang", "11-11-2018", "Musyawarah Mahasiswa", R.drawable.header_navigation));
-//        listkegiatan.add(new Kegiatan("Sporti", "11-11-2018", "Sport TI", R.drawable.header_navigation));
-//        listkegiatan.add(new Kegiatan("Sporti", "11-11-2018", "Sport TI", R.drawable.header_navigation));
-
+        //Adapter Reyclerview
         lists = new ArrayList<>();
         getData();
 
@@ -110,6 +103,7 @@ public class AdminNavigationActivity extends AppCompatActivity {
 
         toggle.syncState();
 
+        //shared Preference
         userPreference = this.getSharedPreferences("login", Context.MODE_PRIVATE);
 
         // get token from shared preference
@@ -125,7 +119,7 @@ public class AdminNavigationActivity extends AppCompatActivity {
         }
 
         if(pic != "missing"){
-            String url = "http://172.17.100.2:8000/"+pic;
+            String url = "http://192.168.43.200:8000/"+pic;
             Glide.with(AdminNavigationActivity.this).load(url).into(img);
         }
 
@@ -192,7 +186,7 @@ public class AdminNavigationActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<ListKegiatan>> call, Throwable t) {
-                Toast.makeText(AdminNavigationActivity.this, "Connection Lost",Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminNavigationActivity.this, "You Are Offline",Toast.LENGTH_LONG).show();
                 sqlite();
             }
         });

@@ -79,7 +79,7 @@ public class KegiatanActivity extends  AppCompatActivity {
 
         nama.setText(title);
         description.setText(desc);
-        String url = "http://172.17.100.2:8000/"+getPic;
+        String url = "http://192.168.43.200:8000/"+getPic;
         Glide.with(KegiatanActivity.this).load(url).into(pamflet);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -131,7 +131,7 @@ public class KegiatanActivity extends  AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<DetKegiatan>> call, Throwable t) {
-                Toast.makeText(KegiatanActivity.this, "Lost Connection", Toast.LENGTH_LONG).show();
+                Toast.makeText(KegiatanActivity.this, "You Are Offline", Toast.LENGTH_LONG).show();
             }
         });
 

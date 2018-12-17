@@ -154,9 +154,9 @@ public class AdminEditKegiatanActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-            RequestBody name = RequestBody.create(MediaType.parse("text/plain"),getNama);
-            RequestBody tanggal = RequestBody.create(MediaType.parse("text/plain"),getTanggal);
-            RequestBody deskripsi = RequestBody.create(MediaType.parse("text/plain"),getDeskripsi);
+            RequestBody name = RequestBody.create(MediaType.parse("text/plain"),insert_nama.getText().toString());
+            RequestBody tanggal = RequestBody.create(MediaType.parse("text/plain"),insert_tanggal.getText().toString());
+            RequestBody deskripsi = RequestBody.create(MediaType.parse("text/plain"),insert_deskripsi.getText().toString());
             RequestBody status = RequestBody.create(MediaType.parse("text/plain"),itemValue);
             File file = new File(path);
             RequestBody requestBody = RequestBody.create(MediaType.parse("pic"), file);
@@ -185,7 +185,7 @@ public class AdminEditKegiatanActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Kegiatans> call, Throwable t) {
-                        Toast.makeText(AdminEditKegiatanActivity.this,"Lost Connection", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AdminEditKegiatanActivity.this,"You Are Offline", Toast.LENGTH_LONG).show();
                     }
                 });
 

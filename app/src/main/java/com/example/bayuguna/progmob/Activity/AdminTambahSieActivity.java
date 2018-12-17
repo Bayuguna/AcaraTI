@@ -85,7 +85,7 @@ public class AdminTambahSieActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<DetKegiatanItem> call, Throwable t) {
-                        Toast.makeText(AdminTambahSieActivity.this, "Lost Connection",Toast.LENGTH_LONG).show();
+                        Toast.makeText(AdminTambahSieActivity.this, "You Are Offline",Toast.LENGTH_LONG).show();
                     }
                 });
 

@@ -3,6 +3,7 @@ package com.example.bayuguna.progmob.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.bayuguna.progmob.Adapter.RiwayatAdapter;
+import com.example.bayuguna.progmob.DatabaseH.DatabaseHelper;
 import com.example.bayuguna.progmob.Model.RiwayatKepanitiaanResponse;
 import com.example.bayuguna.progmob.R;
 import com.example.bayuguna.progmob.network.ApiService;
@@ -34,6 +36,7 @@ public class RiwayatActivity extends  AppCompatActivity {
     RiwayatAdapter myadapter;
 
     ApiService service;
+    DatabaseHelper myDb;
     SwipeRefreshLayout swipeRefreshLayout;
 
     Call<List<RiwayatKepanitiaanResponse>> call;
@@ -67,6 +70,7 @@ public class RiwayatActivity extends  AppCompatActivity {
         swipeRefreshLayout = findViewById(R.id.swipe);
 
         service = RetrofitBuilder.creatService(ApiService.class);
+        myDb = new DatabaseHelper(this);
 
         SharedPreferences userPreference = this.getSharedPreferences("login", Context.MODE_PRIVATE);
 
@@ -111,6 +115,26 @@ public class RiwayatActivity extends  AppCompatActivity {
 //                    Log.d(TAG, "onResponse: "+lists);
                     myadapter.setRiwayat(lists);
 
+                    myDb.deleteKepanitiaan("kepanitiaan_table");
+
+                    for (RiwayatKepanitiaanResponse riwayatKepanitiaan : response.body()){
+
+                        boolean isInserted = myDb.insertKepanitiaan(
+                                riwayatKepanitiaan.getId(),
+                                riwayatKepanitiaan.getNama(),
+                                riwayatKepanitiaan.getSie(),
+                                riwayatKepanitiaan.getAlasan(),
+                                riwayatKepanitiaan.getTanggal(),
+                                riwayatKepanitiaan.getStatus()
+                        );
+
+                        if(!isInserted){
+                            Toast.makeText(RiwayatActivity.this, "Cannot Syncron",Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(RiwayatActivity.this, "Syncronize",Toast.LENGTH_LONG).show();
+                        }
+                    }
+
                 } else {
                     Toast.makeText(RiwayatActivity.this, response.message(),Toast.LENGTH_LONG).show();
                 }
@@ -118,9 +142,33 @@ public class RiwayatActivity extends  AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<RiwayatKepanitiaanResponse>> call, Throwable t) {
-                Toast.makeText(RiwayatActivity.this, "Lost Connection",Toast.LENGTH_LONG).show();
+                Toast.makeText(RiwayatActivity.this, "You Are Offline",Toast.LENGTH_LONG).show();
+                sqlite();
             }
         });
+    }
+
+    public void sqlite(){
+        lists = new ArrayList<>();
+        Cursor res = myDb.getKepanitiaanSQL();
+        if(res.getCount() == 0){
+            Toast.makeText(RiwayatActivity.this, "No Data ", Toast.LENGTH_LONG).show();
+            myadapter.setRiwayat(lists);
+            return;
+        }
+
+        StringBuffer buffer = new StringBuffer();
+        while (res.moveToNext()) {
+            Toast.makeText(RiwayatActivity.this, "Get Data ", Toast.LENGTH_LONG).show();
+            RiwayatKepanitiaanResponse riwayatKepanitiaanResponse = new RiwayatKepanitiaanResponse();
+            riwayatKepanitiaanResponse.setNama(res.getString(2));
+            riwayatKepanitiaanResponse.setSie(res.getString(3));
+            riwayatKepanitiaanResponse.setTanggal(res.getString(5));
+
+            lists.add(riwayatKepanitiaanResponse);
+        }
+
+        myadapter.setRiwayat(lists);
     }
 
     public void refresh(){

@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "infoTi.db";
     public static final String TABLE_NAME = "users_table";
-    public static final String TABLE_NAME_2 = "kepanitiaan_table";
 
     public static final String COL_1 = "ID";
     public static final String COL_2 = "NIM";
@@ -19,6 +18,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_6 = "ALAMAT";
     public static final String COL_7 = "USERNAME";
     public static final String COL_8 = "PASSWORD";
+
+    public static final String TABLE_NAME_2 = "kepanitiaan_table";
+    public static final String COL_ID_USERS= "ID_USERS";
+    public static final String COL_NAMA_KEGIATAN_KEPANITAAN = "NAMA_KEGIATAN";
+    public static final String COL_NAMA_SIE = "NAMA_SIE";
+    public static final String COL_ALASAN = "ALASAN";
+    public static final String COL_TANGGAL_DAFTAR = "TANGGAL_DAFTAR";
+    public static final String COL_STATUS_KEPANITIAAN = "STATUS_KEPANITIAAN";
 
     public static final String TABLE_NAME_3 = "kegiatan_table";
     public static final String COL_ID_KEGIATAN = "ID";
@@ -47,7 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + TABLE_NAME+" (ID INTEGER PRIMARY KEY AUTOINCREMENT,NIM TEXT,NAME TEXT,GMAIL TEXT,TELP TEXT,ALAMAT TEXT,USERNAME TEXT, PASSWORD TEXT)");
-        db.execSQL("create table " + TABLE_NAME_2+" (ID INTEGER PRIMARY KEY AUTOINCREMENT,ID_USERS INTEGER,ID_DET_KEGIATAN INTEGER,ALASAN TEXT,TANGGAL_DAFTAR TEXT,STATUS_KEPANITIAAN TEXT)");
+        db.execSQL("create table " + TABLE_NAME_2+" (ID INTEGER PRIMARY KEY AUTOINCREMENT,ID_USERS INTEGER,NAMA_KEGIATAN STRING,NAMA_SIE STRING,ALASAN TEXT,TANGGAL_DAFTAR TEXT,STATUS_KEPANITIAAN TEXT)");
         db.execSQL("create table " + TABLE_NAME_3+" (ID INTEGER PRIMARY KEY AUTOINCREMENT,PIC TEXT,NAMA TEXT,TANGGAL TEXT,DESKRIPSI TEXT, STATUS TEXT)");
         db.execSQL("create table " + TABLE_NAME_4+" (ID INTEGER PRIMARY KEY AUTOINCREMENT,ID_KEGIATAN INTEGER,SIE TEXT,JOB_DESC TEXT,KUOTA TEXT, NAMA_KOOR TEXT, LINE_ID TEXT)");
     }
@@ -166,21 +173,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete(tableName, null, null);
     }
 
-    public boolean insertRiwayat(int id_kegiatan, String sie, String job_desc, String kuota, String nama_koor, String line_id){
+    public Cursor getKepanitiaanSQL(){
+        db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+TABLE_NAME_2,null);
+        return  res;
+    }
+
+    public boolean insertKepanitiaan(int id_users, String nama_kegaiatan, String nama_sie, String alasan, String tanggal_daftar, String status_kepanitiaan){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_ID_KEGIATANS,id_kegiatan);
-        contentValues.put(COL_SIE_DET_KEGIATAN,sie);
-        contentValues.put(COL_JOB_DESC_DET_KEGIATAN,job_desc);
-        contentValues.put(COL_KUOTA_DET_KEGIATAN,kuota);
-        contentValues.put(COL_NAMA_KOOR_DET_KEGIATAN,nama_koor);
-        contentValues.put(COL_LINE_ID_DET_KEGIATAN,line_id);
-        long result = db.insert(TABLE_NAME_4,null ,contentValues);
+        contentValues.put(COL_ID_USERS,id_users);
+        contentValues.put(COL_NAMA_KEGIATAN_KEPANITAAN,nama_kegaiatan);
+        contentValues.put(COL_NAMA_SIE,nama_sie);
+        contentValues.put(COL_ALASAN,alasan);
+        contentValues.put(COL_TANGGAL_DAFTAR,tanggal_daftar);
+        contentValues.put(COL_STATUS_KEPANITIAAN,status_kepanitiaan);
+        long result = db.insert(TABLE_NAME_2,null ,contentValues);
         db.close();
         if (result == -1)
             return false;
         else
             return true;
+    }
+
+    public void deleteKepanitiaan(String tableName){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(tableName, null, null);
     }
 
 

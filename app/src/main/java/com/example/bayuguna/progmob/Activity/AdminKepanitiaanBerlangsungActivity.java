@@ -142,7 +142,7 @@ public class AdminKepanitiaanBerlangsungActivity extends AppCompatActivity {
         }
 
         if(pic != "missing"){
-            String url = "http://172.17.100.2:8000/"+pic;
+            String url = "http://192.168.43.200:8000/"+pic;
             Glide.with(AdminKepanitiaanBerlangsungActivity.this).load(url).into(img);
         }
 
@@ -209,7 +209,7 @@ public class AdminKepanitiaanBerlangsungActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<ListKegiatan>> call, Throwable t) {
-                Toast.makeText(AdminKepanitiaanBerlangsungActivity.this, "Connection Lost",Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminKepanitiaanBerlangsungActivity.this, "You Are Offline",Toast.LENGTH_LONG).show();
                 sqlite();
             }
         });
