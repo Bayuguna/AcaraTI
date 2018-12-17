@@ -3,7 +3,7 @@ package com.example.bayuguna.progmob.Model;
 import com.google.gson.annotations.SerializedName;
 
 //@Generated("com.robohorse.robopojogenerator")
-public class User{
+public class DataUser{
 
 	@SerializedName("as")
 	private String as;
@@ -37,8 +37,6 @@ public class User{
 
 	@SerializedName("username")
 	private String username;
-
-	private String token;
 
 	public void setAs(String as){
 		this.as = as;
@@ -128,18 +126,10 @@ public class User{
 		return username;
 	}
 
-	public void setToken(String token){
-		this.token = token;
-	}
-
-	public String getToken(){
-		return token;
-	}
-
 	@Override
  	public String toString(){
 		return 
-			"User{" + 
+			"DataUser{" + 
 			"as = '" + as + '\'' + 
 			",nim = '" + nim + '\'' + 
 			",telp = '" + telp + '\'' + 
@@ -150,8 +140,7 @@ public class User{
 			",pic = '" + pic + '\'' + 
 			",email = '" + email + '\'' + 
 			",alamat = '" + alamat + '\'' + 
-			",username = '" + username + '\'' +
-			",token = '" + token + '\'' +
+			",username = '" + username + '\'' + 
 			"}";
 		}
 }

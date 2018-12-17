@@ -15,7 +15,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,11 +22,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.bayuguna.progmob.Adapter.KegiatanAdapter;
+import com.example.bayuguna.progmob.Adapter.AdminKegiatanAdapter;
 import com.example.bayuguna.progmob.DatabaseH.DatabaseHelper;
 import com.example.bayuguna.progmob.Model.ListKegiatan;
 import com.example.bayuguna.progmob.Model.User;
-import com.example.bayuguna.progmob.Model.UserResponse;
 import com.example.bayuguna.progmob.R;
 import com.example.bayuguna.progmob.network.ApiService;
 import com.example.bayuguna.progmob.network.RetrofitBuilder;
@@ -39,35 +37,32 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NavigationActivity extends AppCompatActivity {
+public class AdminKepanitiaanBerlangsungActivity extends AppCompatActivity {
 
-    SwipeRefreshLayout swipeRefreshLayout;
+    ImageView add;
     android.support.v7.widget.Toolbar toolbar = null;
+    SwipeRefreshLayout swipeRefreshLayout;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+    TextView nama;
     ImageView img;
 
     RecyclerView myrey;
 
-    KegiatanAdapter myadapter;
-
-    TextView nama;
-
-    String user_name,user_status, pic;
+    AdminKegiatanAdapter myadapter;
+    SharedPreferences userPreference;
+    String token,user_name,user_status,pic;
     int id_user;
 
     ApiService service;
     Call<List<ListKegiatan>> call;
-    Call<UserResponse<User>> callUser;
     List<ListKegiatan> lists =  new ArrayList<>();
-//    Call<List<ListKegiatan>> call;
-//    List<ListKegiatan> lists =  new ArrayList<>();
-    private static final String TAG = "NavigationActivity";
+    private static final String TAG = "AdminNavigationActivity";
 
-    SharedPreferences userPreference;
-    String token;
+    Call<User> callUser;
 
     DatabaseHelper myDb;
+
 //    private static final String TAG = "NavigationActivity";
 
 //    ImageView imageView;
@@ -89,7 +84,7 @@ public class NavigationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.navigation_dashboard);
+        setContentView(R.layout.admin_navigation_dashboard);
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -97,12 +92,40 @@ public class NavigationActivity extends AppCompatActivity {
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe);
 
-
         service = RetrofitBuilder.creatService(ApiService.class);
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         View header = navigationView.getHeaderView(0);
         nama = (TextView) header.findViewById(R.id.nama_header_1);
-        img = (ImageView) header.findViewById(R.id.pic_nav);
+        img = header.findViewById(R.id.pic_nav);
+
+        myDb = new DatabaseHelper(this);
+
+
+
+//        listkegiatan = new ArrayList<>();
+//        listkegiatan.add(new Kegiatan("Sporti", "11-11-2018", "Spo rt TI koskdokdoksorjosdf ojdfosfoksf sofkoskfoksd osekfoskeofksd fspfkpskfpse spfskdfpksepk sfkpskfsekoskf fsojfosfoejfmso koadkoaksdo oakdoaksodka oakdoakodak oakdoakosd oakdoaksdoka oakdoaksod aodkoakdo aokdoaksodk aodkaoskdo", R.drawable.header_navigation));
+//        listkegiatan.add(new Kegiatan("ITCC", "11-11-2018", "ITCC adalah", R.drawable.itcc));
+//        listkegiatan.add(new Kegiatan("IT-Esega", "11-11-2018", "E-sport Game", R.drawable.itesega));
+//        listkegiatan.add(new Kegiatan("Semnas TI", "11-11-2018", "Seminar Nasional", R.drawable.semnas_ti));
+//        listkegiatan.add(new Kegiatan("Musang", "11-11-2018", "Musyawarah Mahasiswa", R.drawable.header_navigation));
+//        listkegiatan.add(new Kegiatan("Sporti", "11-11-2018", "Sport TI", R.drawable.header_navigation));
+//        listkegiatan.add(new Kegiatan("Sporti", "11-11-2018", "Sport TI", R.drawable.header_navigation));
+
+        lists = new ArrayList<>();
+        getData();
+
+        myrey = (RecyclerView) findViewById(R.id.recyclerview_kegiatan);
+        myadapter = new AdminKegiatanAdapter(this, lists);
+        myrey.setLayoutManager(new GridLayoutManager(this, 2));
+        myrey.setAdapter(myadapter);
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.navigation_dashboard);
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_navigation, R.string.close_navigation);
+        drawerLayout.setDrawerListener(toggle);
+
+        toggle.syncState();
 
         userPreference = this.getSharedPreferences("login", Context.MODE_PRIVATE);
 
@@ -113,8 +136,6 @@ public class NavigationActivity extends AppCompatActivity {
         user_status = userPreference.getString("user_status", "missing");
         pic = userPreference.getString("user_pic", "missing");
 
-        Log.d("Profile picture", "onCreate: " +pic);
-
         if(user_name != "missing" ){
             nama.setText(user_name);
 
@@ -122,53 +143,73 @@ public class NavigationActivity extends AppCompatActivity {
 
         if(pic != "missing"){
             String url = "http://172.17.100.2:8000/"+pic;
-            Glide.with(NavigationActivity.this).load(url).into(img);
+            Glide.with(AdminKepanitiaanBerlangsungActivity.this).load(url).into(img);
         }
 
         if ( token == "missing") {
-            Intent intent = new Intent(NavigationActivity.this, LoginActivity.class);
+            Intent intent = new Intent(AdminKepanitiaanBerlangsungActivity.this, LoginActivity.class);
             startActivity(intent);
         }
 
-        lists = new ArrayList<>();
-        getData();
-
-        myrey = (RecyclerView) findViewById(R.id.recyclerview_kegiatan);
-        myadapter = new KegiatanAdapter(this, lists);
-        myrey.setLayoutManager(new GridLayoutManager(this, 2));
-        myrey.setAdapter(myadapter);
-
-        myDb = new DatabaseHelper(this);
-
-        drawerLayout = (DrawerLayout) findViewById(R.id.navigation_dashboard);
-        navigationView = (NavigationView) findViewById(R.id.navigation_view);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_navigation, R.string.close_navigation);
-        drawerLayout.setDrawerListener(toggle);
-
-        toggle.syncState();
         init(id_user);
+        init();
         refresh();
     }
 
+    public void init() {
+        add = (ImageView) findViewById(R.id.add_kegiatan);
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminKepanitiaanBerlangsungActivity.this, AdminAddKegiatanActivity.class ));
+            }
+        });
+
+    }
+
     public void getData(){
-        call = service.getKegiatan();
+        call = service.getKegiatanBerlangsung();
         call.enqueue(new Callback<List<ListKegiatan>>() {
             @Override
             public void onResponse(Call<List<ListKegiatan>> call, Response<List<ListKegiatan>> response) {
-//                Toast.makeText(NavigationActivity.this, "Berhasil",Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminKepanitiaanBerlangsungActivity.this, "Berhasil",Toast.LENGTH_LONG).show();
                 if (response.isSuccessful()) {
                     lists = response.body();
 //                    Log.d(TAG, "onResponse: "+lists);
-
                     myadapter.setKegiatan(lists);
+
+                    myDb.deleteKegiatan("kegiatan_table");
+
+                    //request is valid and success
+                    for(ListKegiatan listKegiatan : response.body()){
+
+
+                        boolean isInserted = myDb.insertKegiatan(
+                                listKegiatan.getPic(),
+                                listKegiatan.getNama(),
+                                listKegiatan.getTanggal(),
+                                listKegiatan.getDeskripsi(),
+                                listKegiatan.getStatus()
+
+                        );
+
+                        if(!isInserted){
+                            Toast.makeText(AdminKepanitiaanBerlangsungActivity.this, "Cannot Syncron",Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(AdminKepanitiaanBerlangsungActivity.this, "Syncronize",Toast.LENGTH_LONG).show();
+                        }
+                    }
+
                 } else {
-                    Toast.makeText(NavigationActivity.this, "Error",Toast.LENGTH_LONG).show();
+                    Toast.makeText(AdminKepanitiaanBerlangsungActivity.this, response.message(),Toast.LENGTH_LONG).show();
                 }
+
             }
+
             @Override
             public void onFailure(Call<List<ListKegiatan>> call, Throwable t) {
-                Toast.makeText(NavigationActivity.this, "Lost Connection",Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminKepanitiaanBerlangsungActivity.this, "Connection Lost",Toast.LENGTH_LONG).show();
                 sqlite();
             }
         });
@@ -179,14 +220,14 @@ public class NavigationActivity extends AppCompatActivity {
         lists = new ArrayList<>();
         Cursor res = myDb.getKegiatanSQL();
         if(res.getCount() == 0){
-            Toast.makeText(NavigationActivity.this, "No Data ", Toast.LENGTH_LONG).show();
+            Toast.makeText(AdminKepanitiaanBerlangsungActivity.this, "No Data ", Toast.LENGTH_LONG).show();
             myadapter.setKegiatan(lists);
             return;
         }
 
         StringBuffer buffer = new StringBuffer();
         while (res.moveToNext()) {
-            Toast.makeText(NavigationActivity.this, "Get Data ", Toast.LENGTH_LONG).show();
+            Toast.makeText(AdminKepanitiaanBerlangsungActivity.this, "Get Data ", Toast.LENGTH_LONG).show();
             ListKegiatan listKegiatan = new ListKegiatan();
             listKegiatan.setNama(res.getString(2));
             listKegiatan.setTanggal(res.getString(3));
@@ -223,38 +264,48 @@ public class NavigationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(NavigationActivity.this, ProfileActivity.class);
+
+                Intent intent = new Intent(AdminKepanitiaanBerlangsungActivity.this, ProfileActivity.class);
+//                intent.putExtra("Id", id_user);
+
                 startActivity(intent);
             }
 
+//                    @Override
+//                    public void onFailure(Call<User> call, Throwable t) {
+//
+//                    }
+//                });
+//
+//            }
         });
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
 
+
                 int id = menuItem.getItemId();
                 switch (id) {
 
                     case R.id.kegiatan:
-                        Intent kegiatan = new Intent(NavigationActivity.this, NavigationActivity.class);
+                        Intent kegiatan = new Intent(AdminKepanitiaanBerlangsungActivity.this, AdminNavigationActivity.class);
 
                         kegiatan.putExtra("Nama", nama.getText().toString());
+//                        kegiatan.putExtra("Id", getId);
                         startActivity(kegiatan);
                         break;
-                    case R.id.pengumuman:
-                        Intent pengumuman = new Intent(NavigationActivity.this, ProfileActivity.class);
-                        startActivity(pengumuman);
-                        break;
-                    case R.id.riwayat_kepanitiaan:
-                        Intent riwayat = new Intent(NavigationActivity.this, RiwayatActivity.class);
-                        startActivity(riwayat);
-                        break;
+                    case R.id.kepanitiaan:
+                        Intent kepanitiaan = new Intent(AdminKepanitiaanBerlangsungActivity.this, AdminKepanitiaanBerlangsungActivity.class);
 
+                        kepanitiaan.putExtra("Nama", nama.getText().toString());
+//                        kepanitiaan.putExtra("Id", getId);
+                        startActivity(kepanitiaan);
+                        break;
                     case R.id.about:
-                        Intent about = new Intent(NavigationActivity.this, AboutActivity.class);
+                        Intent about = new Intent(AdminKepanitiaanBerlangsungActivity.this, AboutActivity.class);
+
                         startActivity(about);
                         break;
-
                     case R.id.logout:
                         logout();
                         break;
@@ -266,7 +317,7 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     public void logout(){
-        new AlertDialog.Builder(NavigationActivity.this)
+        new AlertDialog.Builder(AdminKepanitiaanBerlangsungActivity.this)
                 .setTitle("Really Logout")
                 .setMessage("Are you sure want to logout ?")
                 .setNegativeButton(android.R.string.no,null)

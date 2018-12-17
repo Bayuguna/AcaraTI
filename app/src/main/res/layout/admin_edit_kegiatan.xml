@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Tambah Sie"
+            android:text="Edit Kegiatan"
             android:textSize="40dp"
             android:textStyle="bold"
             android:layout_marginBottom="15dp"/>
@@ -42,50 +42,24 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/line_back">
 
-                <!--<TextView-->
-                    <!--android:id="@+id/id_sie"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="id"/>-->
-
                 <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                android:layout_width="100dp"
-                android:layout_height="60dp"
-                android:text="Nama Kepanitiaan"/>
-                <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=":"
-                    android:layout_margin="5dp"/>
-                <EditText
-                android:id="@+id/nama_kegiatan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Nama Kepanitiaan" />
-                </LinearLayout>
-
-                <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                    android:orientation="horizontal">
                     <TextView
-                        android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="Sie"/>
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:text="Nama Kepanitiaan"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=":"
                         android:layout_margin="5dp"/>
                     <EditText
-                    android:id="@+id/sie"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Sie"/>
+                        android:id="@+id/nama_kegiatan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nama Kepanitiaan"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -93,19 +67,25 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
-                        android:layout_width="100dp"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
-                        android:text="Koor"/>
+                        android:text="Tanggal"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=":"
                         android:layout_margin="5dp"/>
                     <EditText
-                        android:id="@+id/nama_koor"
-                        android:layout_width="match_parent"
+                        android:id="@+id/tanggal_kegiatan"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="Koor"/>
+                        android:hint="Tanggal Kepanitiaan"/>
+                    <Button
+                        android:id="@+id/btn_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -113,19 +93,19 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
-                        android:layout_width="100dp"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
-                        android:text="Kuota"/>
+                        android:text="Deskripsi"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=":"
                         android:layout_margin="5dp"/>
                     <EditText
-                        android:id="@+id/kuota"
+                        android:id="@+id/deskripsi_kegiatan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Kuota"/>
+                        android:hint="Deskripsi"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -133,40 +113,47 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
-                        android:layout_width="100dp"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
-                        android:text="ID Line"/>
+                        android:text="Logo Kepanitiaan"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=":"
                         android:layout_margin="5dp"/>
-                    <EditText
-                        android:id="@+id/line_id"
-                        android:layout_width="match_parent"
+                    <Button
+                        android:id="@+id/btn_foto"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="ID Line"/>
+                        android:text="Select Foto"/>
                 </LinearLayout>
 
                 <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Job Desc"/>
-                <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=":"
-                    android:layout_margin="5dp"/>
-                <EditText
-                android:id="@+id/job_desc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Job Desc"/>
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:text="Status Kepanitiaan"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=":"
+                        android:layout_margin="5dp"/>
+
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/pic_kegiatan"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
 
             </LinearLayout>
 
@@ -178,12 +165,12 @@
             android:orientation="horizontal"
             android:gravity="center">
             <Button
-                android:id="@id/btn_back"
+                android:id="@+id/btn_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Batal"/>
             <Button
-                android:id="@+id/btn_save_sie"
+                android:id="@+id/btn_save_kegiatan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Save"/>

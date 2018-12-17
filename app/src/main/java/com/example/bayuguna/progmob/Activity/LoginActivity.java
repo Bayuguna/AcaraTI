@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bayuguna.progmob.DatabaseHelper;
+import com.example.bayuguna.progmob.DatabaseH.DatabaseHelper;
 import com.example.bayuguna.progmob.Model.User;
 import com.example.bayuguna.progmob.Model.UserResponse;
 import com.example.bayuguna.progmob.R;
@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     TokenManager tokenManager;
     retrofit2.Call<UserResponse<User>> call;
     private SharedPreferences userPreference;
+    String token,user_status;
 
     private static final String TAG = "LoginActivity";
 
@@ -82,12 +83,19 @@ public class LoginActivity extends AppCompatActivity {
         login();
 
         // get token from shared preference
-        userPreference = this.getSharedPreferences("user", Context.MODE_PRIVATE);
-        String token = userPreference.getString("token", "missing");
+        userPreference = this.getSharedPreferences("login", Context.MODE_PRIVATE);
+        token = userPreference.getString("token", "missing");
+        user_status = userPreference.getString("user_status", "missing");
 
         // check token
-        if (token != "missing") {
-            new LoginActivity();
+        if (token != "missing" && user_status.equals("Member")) {
+            Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
+            startActivity(intent);
+            finish();
+        }else if(token != "missing" && user_status.equals("Admin") ){
+            Intent intent = new Intent(LoginActivity.this, AdminNavigationActivity.class);
+            startActivity(intent);
+            finish();
         }
 
 
@@ -110,25 +118,36 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Isi dulu fieldnya",Toast.LENGTH_LONG).show();
                         }else {
                             if (response.isSuccessful()){
-                                getSharedPreferences("login", Context.MODE_PRIVATE)
-                                        .edit()
-                                        .putString("token", response.body().getToken())
-                                        .apply();
+                                SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("token", response.body().getToken());
+                                editor.putString("user_nim", response.body().getDataUser().getNim());
+                                editor.putString("user_pic", response.body().getDataUser().getPic());
+                                editor.putString("user_status", response.body().getDataUser().getAs());
+                                editor.putString("user_name", response.body().getDataUser().getName());
+                                editor.putString("user_email", response.body().getDataUser().getEmail());
+                                editor.putString("user_telp", response.body().getDataUser().getTelp());
+                                editor.putString("user_alamat", response.body().getDataUser().getAlamat());
+                                editor.putInt("id_user", response.body().getDataUser().getId());
+                                editor.apply();
+
+                                Toast.makeText(LoginActivity.this, response.body().getDataUser().getName(),Toast.LENGTH_LONG).show();
+
 
                                 if (response.body().getDataUser().getAs().equals("Member")){
                                     Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
 
-                                    intent.putExtra("Id", response.body().getDataUser().getId());
-                                    intent.putExtra("Nama", response.body().getDataUser().getName());
+//                                    intent.putExtra("user_pic", response.body().getDataUser().getPic());
+//                                    intent.putExtra("Nama", response.body().getDataUser().getName());
                                     startActivity(intent);
-
                                     finish();
+
                                 }else if (response.body().getDataUser().getAs().equals("Admin")){
                                     Intent intent = new Intent(LoginActivity.this, AdminNavigationActivity.class);
                                     Toast.makeText(LoginActivity.this, "Ini Admin",Toast.LENGTH_LONG).show();
 
-                                    intent.putExtra("Id", response.body().getDataUser().getId());
-                                    intent.putExtra("Nama", response.body().getDataUser().getName());
+                                    intent.putExtra("Id", response.body().getDataUser().getPic());
+//                                    intent.putExtra("Nama", response.body().getDataUser().getName());
                                     startActivity(intent);
 
                                     finish();

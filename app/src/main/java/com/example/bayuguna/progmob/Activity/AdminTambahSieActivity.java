@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bayuguna.progmob.Model.Sie;
+import com.example.bayuguna.progmob.Model.DetKegiatanItem;
 import com.example.bayuguna.progmob.R;
 import com.example.bayuguna.progmob.network.ApiService;
 import com.example.bayuguna.progmob.network.RetrofitBuilder;
@@ -20,11 +20,11 @@ import retrofit2.Response;
 
 public class AdminTambahSieActivity extends AppCompatActivity {
 
-    Button save;
+    Button save,back;
     EditText nama,insert_sie,insert_kuota,insert_koor,insert_line,insert_job_desc;
     TextView getId;
     ApiService service;
-    retrofit2.Call<Sie> call;
+    retrofit2.Call<DetKegiatanItem> call;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +38,19 @@ public class AdminTambahSieActivity extends AppCompatActivity {
         insert_koor = (EditText) findViewById(R.id.nama_koor);
         insert_line = (EditText) findViewById(R.id.line_id);
         insert_job_desc = (EditText) findViewById(R.id.job_desc);
+        back = findViewById(R.id.btn_back);
 
         Intent intent = getIntent();
         int id_kegiatan = intent.getExtras().getInt("Id_kegiatan");
 //        Log.d("ID IN ADMIN KEGIATAN", id_kegiatan + "");
 
-        String getNama = intent.getExtras().getString("Nama_kepanitiaan");
+        String getNama = intent.getExtras().getString("Nama_kegiatan");
 
         nama.setText(getNama);
 
         service = RetrofitBuilder.creatService(ApiService.class);
         addData(id_kegiatan);
+        init();
     }
 
     public void addData(final int id_kegiatan){
@@ -63,18 +65,17 @@ public class AdminTambahSieActivity extends AppCompatActivity {
                 String job_desc = insert_job_desc.getText().toString();
 
                 call = service.addDetKegiatan(id_kegiatan,sie,job_desc,kuota,koor,line);
-                call.enqueue(new Callback<Sie>() {
+                call.enqueue(new Callback<DetKegiatanItem>() {
                     @Override
-                    public void onResponse(Call<Sie> call, Response<Sie> response) {
+                    public void onResponse(Call<DetKegiatanItem> call, Response<DetKegiatanItem> response) {
 
                         if (insert_sie.getText().toString().isEmpty() && insert_kuota.getText().toString().isEmpty() && insert_koor.getText().toString().isEmpty() && insert_line.getText().toString().isEmpty()){
                             Toast.makeText(AdminTambahSieActivity.this, "Isi dulu fieldnya",Toast.LENGTH_LONG).show();
                         }else {
                             if (response.isSuccessful()){
                                 Toast.makeText(AdminTambahSieActivity.this, "Sie Berhasil Ditambahkan",Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(AdminTambahSieActivity.this, AdminKegiatanActivity.class);
-                                intent.putExtra("Id_kegiatan", response.body().getId());
-                                startActivity(intent);
+                                onBackPressed();
+                                finish();
                             }else {
                                 Toast.makeText(AdminTambahSieActivity.this, response.message(),Toast.LENGTH_LONG).show();
                             }
@@ -83,11 +84,21 @@ public class AdminTambahSieActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<Sie> call, Throwable t) {
+                    public void onFailure(Call<DetKegiatanItem> call, Throwable t) {
                         Toast.makeText(AdminTambahSieActivity.this, "Lost Connection",Toast.LENGTH_LONG).show();
                     }
                 });
 
+            }
+        });
+    }
+
+    public void init(){
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                finish();
             }
         });
     }

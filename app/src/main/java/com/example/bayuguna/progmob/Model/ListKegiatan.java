@@ -20,7 +20,7 @@ public class ListKegiatan{
 	private int id;
 
 	@SerializedName("pic")
-	private Object pic;
+	private String pic;
 
 	@SerializedName("tanggal")
 	private String tanggal;
@@ -66,11 +66,11 @@ public class ListKegiatan{
 		return id;
 	}
 
-	public void setPic(Object pic){
+	public void setPic(String pic){
 		this.pic = pic;
 	}
 
-	public Object getPic(){
+	public String getPic(){
 		return pic;
 	}
 
@@ -118,7 +118,7 @@ public class ListKegiatan{
 			",tanggal = '" + tanggal + '\'' + 
 			",deskripsi = '" + deskripsi + '\'' + 
 			",status = '" + status + '\'' + 
-			",det_kegiatan = '" + detKegiatan + '\'' + 
+			",det_kegiatan = '" + detKegiatan + '\'' +
 			"}";
 		}
 }

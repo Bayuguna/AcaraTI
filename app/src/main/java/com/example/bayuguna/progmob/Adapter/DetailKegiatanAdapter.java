@@ -2,27 +2,28 @@ package com.example.bayuguna.progmob.Adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.bayuguna.progmob.Model.Sie;
+import com.example.bayuguna.progmob.Model.DetKegiatan;
 import com.example.bayuguna.progmob.R;
 
 import java.util.List;
 
 public class DetailKegiatanAdapter extends RecyclerView.Adapter<DetailKegiatanAdapter.MyVieHolder> {
     private Context kContext;
-    private List<Sie> kData;
+    private List<DetKegiatan> kData;
 
-    public DetailKegiatanAdapter(Context kContext, List<Sie> kData) {
+    public DetailKegiatanAdapter(Context kContext, List<DetKegiatan> kData) {
         this.kContext = kContext;
         this.kData = kData;
     }
 
-    public void setKegiatan(List<Sie> kData) {
+    public void setSie(List<DetKegiatan> kData) {
         this.kData = kData;
         notifyDataSetChanged();
     }
@@ -39,13 +40,9 @@ public class DetailKegiatanAdapter extends RecyclerView.Adapter<DetailKegiatanAd
     @Override
     public void onBindViewHolder(@NonNull DetailKegiatanAdapter.MyVieHolder myVieHolder, final int i) {
 
-        myVieHolder.Nama.setText(kData.get(i).getSie());
-        myVieHolder.Koor.setText(kData.get(i).getKuota());
-        myVieHolder.Line.setText(kData.get(i).getLineId());
-//        myVieHolder.Kegiatan_pamflet.setImageResource(kData.get(i).getPamflet());
-
-
-
+        myVieHolder.Sie.setText(kData.get(i).getSie());
+        myVieHolder.Koor.setText(kData.get(i).getKoor());
+        myVieHolder.Line.setText(kData.get(i).getLine());
 
     }
 
@@ -59,14 +56,18 @@ public class DetailKegiatanAdapter extends RecyclerView.Adapter<DetailKegiatanAd
 
 
     public class MyVieHolder extends RecyclerView.ViewHolder {
-        TextView Nama,Line,Koor;
+        TextView Sie,Line,Koor;
+        CardView cardView;
+
 
         public MyVieHolder(@NonNull View itemView) {
             super(itemView);
 
-            Nama = itemView.findViewById(R.id.sie_kegiatan);
+            Sie = itemView.findViewById(R.id.sie_kegiatan);
             Koor = itemView.findViewById(R.id.koor_kegiatan);
             Line = itemView.findViewById(R.id.idLine_kegiatan);
+            cardView = (CardView) itemView.findViewById(R.id.card_recyclerview);
         }
     }
+
 }

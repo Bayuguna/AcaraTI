@@ -3,7 +3,7 @@ package com.example.bayuguna.progmob.Model;
 import com.google.gson.annotations.SerializedName;
 
 //@Generated("com.robohorse.robopojogenerator")
-public class 	DetKegiatanItem{
+public class DetKegiatanItem{
 
 	@SerializedName("updated_at")
 	private String updatedAt;
@@ -105,18 +105,18 @@ public class 	DetKegiatanItem{
 	}
 
 	@Override
- 	public String toString(){
-		return 
-			"DetKegiatanItem{" + 
-			"updated_at = '" + updatedAt + '\'' + 
-			",job_desc = '" + jobDesc + '\'' + 
-			",kuota = '" + kuota + '\'' + 
-			",created_at = '" + createdAt + '\'' + 
-			",id = '" + id + '\'' + 
-			",nama_koor = '" + namaKoor + '\'' + 
-			",line_id = '" + lineId + '\'' + 
-			",id_kegiatan = '" + idKegiatan + '\'' + 
-			",sie = '" + sie + '\'' + 
-			"}";
-		}
+	public String toString(){
+		return
+				"DataItem{" +
+						"updated_at = '" + updatedAt + '\'' +
+						",job_desc = '" + jobDesc + '\'' +
+						",kuota = '" + kuota + '\'' +
+						",created_at = '" + createdAt + '\'' +
+						",id = '" + id + '\'' +
+						",nama_koor = '" + namaKoor + '\'' +
+						",line_id = '" + lineId + '\'' +
+						",id_kegiatan = '" + idKegiatan + '\'' +
+						",sie = '" + sie + '\'' +
+						"}";
+	}
 }

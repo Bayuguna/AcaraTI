@@ -1,7 +1,11 @@
 package com.example.bayuguna.progmob.Activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,10 +34,14 @@ public class RiwayatActivity extends  AppCompatActivity {
     RiwayatAdapter myadapter;
 
     ApiService service;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     Call<List<RiwayatKepanitiaanResponse>> call;
     List<RiwayatKepanitiaanResponse> lists;
     private static final String TAG = "RiwayatActivity";
+
+    String token;
+    int id_user;
 
 
     @Override
@@ -56,13 +64,25 @@ public class RiwayatActivity extends  AppCompatActivity {
 //        SharedPreferences sharedPreferences = this.getSharedPreferences("user", Context.MODE_PRIVATE);
 //        String token = sharedPreferences.getString("token", "missing");
 
+        swipeRefreshLayout = findViewById(R.id.swipe);
+
         service = RetrofitBuilder.creatService(ApiService.class);
 
-        Intent intent = getIntent();
-        int getId = intent.getExtras().getInt("Id");
+        SharedPreferences userPreference = this.getSharedPreferences("login", Context.MODE_PRIVATE);
+
+        // get token from shared preference
+        token = userPreference.getString("token", "missing");
+        id_user = userPreference.getInt("id_user", 0);
+
+
+
+        if ( token == "missing") {
+            Intent intent = new Intent(RiwayatActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
 
         lists = new ArrayList<>();
-        getData(getId);
+        getData(id_user);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
@@ -76,11 +96,13 @@ public class RiwayatActivity extends  AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        refresh();
+
 
     }
 
-    public void getData(int getId){
-        call = service.getRiwayat(getId);
+    public void getData(int id_user){
+        call = service.getRiwayat(id_user);
         call.enqueue(new Callback<List<RiwayatKepanitiaanResponse>>() {
             @Override
             public void onResponse(Call<List<RiwayatKepanitiaanResponse>> call, Response<List<RiwayatKepanitiaanResponse>> response) {
@@ -97,6 +119,22 @@ public class RiwayatActivity extends  AppCompatActivity {
             @Override
             public void onFailure(Call<List<RiwayatKepanitiaanResponse>> call, Throwable t) {
                 Toast.makeText(RiwayatActivity.this, "Lost Connection",Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void refresh(){
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getData(id_user);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                },5000);
             }
         });
     }

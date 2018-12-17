@@ -1,10 +1,17 @@
 package com.example.bayuguna.progmob.Activity;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +21,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.bayuguna.progmob.Adapter.AdminKegiatanAdapter;
+import com.example.bayuguna.progmob.DatabaseH.DatabaseHelper;
 import com.example.bayuguna.progmob.Model.ListKegiatan;
 import com.example.bayuguna.progmob.Model.User;
 import com.example.bayuguna.progmob.R;
@@ -32,13 +41,18 @@ public class AdminNavigationActivity extends AppCompatActivity {
 
     ImageView add;
     android.support.v7.widget.Toolbar toolbar = null;
+    SwipeRefreshLayout swipeRefreshLayout;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     TextView nama;
+    ImageView img;
 
     RecyclerView myrey;
 
     AdminKegiatanAdapter myadapter;
+    SharedPreferences userPreference;
+    String token,user_name,user_status,pic;
+    int id_user;
 
     ApiService service;
     Call<List<ListKegiatan>> call;
@@ -47,23 +61,8 @@ public class AdminNavigationActivity extends AppCompatActivity {
 
     Call<User> callUser;
 
-//    private static final String TAG = "NavigationActivity";
+    DatabaseHelper myDb;
 
-//    ImageView imageView;
-//
-//    public void init() {
-//        imageView = (ImageView) findViewById(R.id.pic_nav);
-//        imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(NavigationActivity.this, ProfileActivity.class);
-//
-//                startActivity(intent);
-//            }
-//        });
-//
-//
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,10 +73,17 @@ public class AdminNavigationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe);
+
         service = RetrofitBuilder.creatService(ApiService.class);
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         View header = navigationView.getHeaderView(0);
         nama = (TextView) header.findViewById(R.id.nama_header_1);
+        img = header.findViewById(R.id.pic_nav);
+
+        myDb = new DatabaseHelper(this);
+
+
 
 //        listkegiatan = new ArrayList<>();
 //        listkegiatan.add(new Kegiatan("Sporti", "11-11-2018", "Spo rt TI koskdokdoksorjosdf ojdfosfoksf sofkoskfoksd osekfoskeofksd fspfkpskfpse spfskdfpksepk sfkpskfsekoskf fsojfosfoejfmso koadkoaksdo oakdoaksodka oakdoakodak oakdoakosd oakdoaksdoka oakdoaksod aodkoakdo aokdoaksodk aodkaoskdo", R.drawable.header_navigation));
@@ -104,13 +110,33 @@ public class AdminNavigationActivity extends AppCompatActivity {
 
         toggle.syncState();
 
-        Intent intent = getIntent();
-        String getNama = intent.getExtras().getString("Nama");
-        int getId = intent.getExtras().getInt("Id");
+        userPreference = this.getSharedPreferences("login", Context.MODE_PRIVATE);
 
-        nama.setText(getNama);
-        init(getId);
+        // get token from shared preference
+        token = userPreference.getString("token", "missing");
+        user_name = userPreference.getString("user_name", "missing");
+        id_user = userPreference.getInt("id_user", 0);
+        user_status = userPreference.getString("user_status", "missing");
+        pic = userPreference.getString("user_pic", "missing");
+
+        if(user_name != "missing" ){
+            nama.setText(user_name);
+
+        }
+
+        if(pic != "missing"){
+            String url = "http://172.17.100.2:8000/"+pic;
+            Glide.with(AdminNavigationActivity.this).load(url).into(img);
+        }
+
+        if ( token == "missing") {
+            Intent intent = new Intent(AdminNavigationActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
+
+        init(id_user);
         init();
+        refresh();
     }
 
     public void init() {
@@ -136,8 +162,30 @@ public class AdminNavigationActivity extends AppCompatActivity {
 //                    Log.d(TAG, "onResponse: "+lists);
                     myadapter.setKegiatan(lists);
 
+                    myDb.deleteKegiatan("kegiatan_table");
+
+                    //request is valid and success
+                    for(ListKegiatan listKegiatan : response.body()){
+
+
+                        boolean isInserted = myDb.insertKegiatan(
+                                listKegiatan.getPic(),
+                                listKegiatan.getNama(),
+                                listKegiatan.getTanggal(),
+                                listKegiatan.getDeskripsi(),
+                                listKegiatan.getStatus()
+
+                        );
+
+                        if(!isInserted){
+                            Toast.makeText(AdminNavigationActivity.this, "Cannot Syncron",Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(AdminNavigationActivity.this, "Syncronize",Toast.LENGTH_LONG).show();
+                        }
+                    }
+
                 } else {
-                    Toast.makeText(AdminNavigationActivity.this, "Error",Toast.LENGTH_LONG).show();
+                    Toast.makeText(AdminNavigationActivity.this, response.message(),Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -145,13 +193,52 @@ public class AdminNavigationActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<ListKegiatan>> call, Throwable t) {
                 Toast.makeText(AdminNavigationActivity.this, "Connection Lost",Toast.LENGTH_LONG).show();
+                sqlite();
             }
         });
 
     }
 
+    public void sqlite(){
+        lists = new ArrayList<>();
+        Cursor res = myDb.getKegiatanSQL();
+        if(res.getCount() == 0){
+            Toast.makeText(AdminNavigationActivity.this, "No Data ", Toast.LENGTH_LONG).show();
+            myadapter.setKegiatan(lists);
+            return;
+        }
 
-    public void init(final int getId) {
+        StringBuffer buffer = new StringBuffer();
+        while (res.moveToNext()) {
+            Toast.makeText(AdminNavigationActivity.this, "Get Data ", Toast.LENGTH_LONG).show();
+            ListKegiatan listKegiatan = new ListKegiatan();
+            listKegiatan.setNama(res.getString(2));
+            listKegiatan.setTanggal(res.getString(3));
+
+            lists.add(listKegiatan);
+        }
+
+        myadapter.setKegiatan(lists);
+    }
+
+    public void refresh(){
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getData();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                },5000);
+            }
+        });
+    }
+
+
+    public void init(final int id_user) {
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         View header = navigationView.getHeaderView(0);
@@ -162,7 +249,7 @@ public class AdminNavigationActivity extends AppCompatActivity {
 
 
                 Intent intent = new Intent(AdminNavigationActivity.this, ProfileActivity.class);
-                intent.putExtra("Id", getId);
+//                intent.putExtra("Id", id_user);
 
                 startActivity(intent);
             }
@@ -187,14 +274,14 @@ public class AdminNavigationActivity extends AppCompatActivity {
                         Intent kegiatan = new Intent(AdminNavigationActivity.this, AdminNavigationActivity.class);
 
                         kegiatan.putExtra("Nama", nama.getText().toString());
-                        kegiatan.putExtra("Id", getId);
+//                        kegiatan.putExtra("Id", getId);
                         startActivity(kegiatan);
                         break;
                     case R.id.kepanitiaan:
-                        Intent kepanitiaan = new Intent(AdminNavigationActivity.this, AdminNavigationActivity.class);
+                        Intent kepanitiaan = new Intent(AdminNavigationActivity.this, AdminKepanitiaanBerlangsungActivity.class);
 
                         kepanitiaan.putExtra("Nama", nama.getText().toString());
-                        kepanitiaan.putExtra("Id", getId);
+//                        kepanitiaan.putExtra("Id", getId);
                         startActivity(kepanitiaan);
                         break;
                     case R.id.about:
@@ -203,14 +290,31 @@ public class AdminNavigationActivity extends AppCompatActivity {
                         startActivity(about);
                         break;
                     case R.id.logout:
-                        Intent logout = new Intent(AdminNavigationActivity.this, LoginActivity.class);
-                        startActivity(logout);
-                        finish();
+                        logout();
                         break;
                 }
 
                 return true;
             }
         });
+    }
+
+    public void logout(){
+        new AlertDialog.Builder(AdminNavigationActivity.this)
+                .setTitle("Really Logout")
+                .setMessage("Are you sure want to logout ?")
+                .setNegativeButton(android.R.string.no,null)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        SharedPreferences sharedPref = getSharedPreferences("login", Context.MODE_PRIVATE);
+                        sharedPref.edit().clear().commit();
+
+                        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }).create().show();
+
     }
 }

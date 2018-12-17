@@ -1,6 +1,8 @@
 package com.example.bayuguna.progmob.Activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,6 +16,8 @@ import android.widget.Toast;
 
 import com.example.bayuguna.progmob.Model.RiwayatKepanitiaan;
 import com.example.bayuguna.progmob.Model.SieSpinner;
+import com.example.bayuguna.progmob.Model.User;
+import com.example.bayuguna.progmob.Model.UserResponse;
 import com.example.bayuguna.progmob.R;
 import com.example.bayuguna.progmob.network.ApiService;
 import com.example.bayuguna.progmob.network.RetrofitBuilder;
@@ -32,8 +36,13 @@ public class RegisterKepanitianActivity extends AppCompatActivity {
     Button save;
     Spinner sie;
     Call<List<SieSpinner>> call_spiner;
+    Call<UserResponse<User>> callUser;
     List<SieSpinner> allSie = new ArrayList<>();
     int id_det_kegiatan;
+    SharedPreferences userPreference;
+    private String token,user_name;
+    private  int id_user;
+
 
     ArrayAdapter adapter;
 
@@ -41,7 +50,6 @@ public class RegisterKepanitianActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_kepanitian);
-
 
         alasan = findViewById(R.id.alasan);
         save = findViewById(R.id.kirim);
@@ -53,6 +61,21 @@ public class RegisterKepanitianActivity extends AppCompatActivity {
 
 
         service = RetrofitBuilder.creatService(ApiService.class);
+
+        userPreference = this.getSharedPreferences("login", Context.MODE_PRIVATE);
+        // get token from shared preference
+        token = userPreference.getString("token", "missing");
+        id_user = userPreference.getInt("id_user", 0);
+        user_name = userPreference.getString("user_name", "missing");
+
+        Log.d("Token Response", "onCreate: " + token);
+        Log.d("ID Response", "onCreate: " + id_user);
+        Log.d("Name Response", "onCreate: " + user_name);
+
+        if (token == "missing") {
+            Intent intens = new Intent(RegisterKepanitianActivity.this, LoginActivity.class);
+            startActivity(intens);
+        }
 
         sie.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -74,10 +97,7 @@ public class RegisterKepanitianActivity extends AppCompatActivity {
 
             }
         });
-
-
         getData(id_kegiatan);
-
     }
 
     public void getData(int id_kegiatan){
@@ -117,7 +137,7 @@ public class RegisterKepanitianActivity extends AppCompatActivity {
                 String insert_alasan = alasan.getText().toString();
                 Log.d("Alasan REGISTER ", id_det_kegiatan + "");
 
-                call = service.ikutKepanitiaan(id_det_kegiatan,insert_alasan);
+                call = service.ikutKepanitiaan(token, id_user, id_det_kegiatan,insert_alasan);
                 call.enqueue(new Callback<RiwayatKepanitiaan>() {
                     @Override
                     public void onResponse(Call<RiwayatKepanitiaan> call, Response<RiwayatKepanitiaan> response) {
@@ -126,10 +146,8 @@ public class RegisterKepanitianActivity extends AppCompatActivity {
                         }else {
                             if (response.isSuccessful()){
                                 Toast.makeText(RegisterKepanitianActivity.this, "Register Berhasil Dilakuakan",Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(RegisterKepanitianActivity.this, KegiatanActivity.class);
-                                intent.putExtra("Id_kegiatan", response.body().getId());
-                                startActivity(intent);
-
+                                onBackPressed();
+                                finish();
                             }else {
                                 Toast.makeText(RegisterKepanitianActivity.this, response.message(),Toast.LENGTH_LONG).show();
                             }
@@ -147,4 +165,5 @@ public class RegisterKepanitianActivity extends AppCompatActivity {
         });
 
     }
+
 }

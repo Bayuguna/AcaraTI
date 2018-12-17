@@ -18,14 +18,11 @@
         android:background="@drawable/circle"
         android:layout_marginTop="10dp">
 
-        <android.support.v7.widget.AppCompatImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/pic_nav"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:adjustViewBounds="true"
             android:layout_margin="4dp"
-            android:contentDescription="profile_pic"
-            android:scaleType="fitCenter"
             android:src="@drawable/user_profile" />
 
     </RelativeLayout>

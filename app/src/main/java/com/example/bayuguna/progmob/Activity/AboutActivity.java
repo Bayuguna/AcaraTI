@@ -38,7 +38,7 @@ public class AboutActivity extends AppCompatActivity {
         lists = new ArrayList<>();
         lists.add(new About("Isna Wanda Robiulla","1605551091",R.drawable.wanda));
         lists.add(new About("Ni Luh Putu Giri Gita Saraswati","1605551102",R.drawable.gita));
-        lists.add(new About("Putu Denanta Bayuguna","1605552011",R.drawable.devi));
+        lists.add(new About("Putu Denanta Bayuguna","1605552011",R.drawable.bayu));
 
         myrey = (RecyclerView) findViewById(R.id.recyclerview_about);
         myadapter = new AboutAdapter(this, lists);

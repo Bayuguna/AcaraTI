@@ -30,7 +30,10 @@ public class Peserta{
 	private String sie;
 
 	@SerializedName("users")
-	private User users;
+	private Users users;
+
+	@SerializedName("alasan")
+	private String alasan;
 
 	@SerializedName("id_det_kegiatan")
 	private int idDetKegiatan;
@@ -41,14 +44,14 @@ public class Peserta{
 	@SerializedName("id")
 	private int id;
 
+	@SerializedName("id_kepanitiaan")
+	private int idKepanitiaan;
+
 	@SerializedName("tanggal_daftar")
 	private String tanggalDaftar;
 
 	@SerializedName("status_kepanitiaan")
 	private String statusKepanitiaan;
-
-	@SerializedName("det_kegiatan")
-	private DetKegiatanItem detKegiatan;
 
 	public void setJobDesc(String jobDesc){
 		this.jobDesc = jobDesc;
@@ -114,12 +117,20 @@ public class Peserta{
 		return sie;
 	}
 
-	public void setUsers(User users){
+	public void setUsers(Users users){
 		this.users = users;
 	}
 
-	public User getUsers(){
+	public Users getUsers(){
 		return users;
+	}
+
+	public void setAlasan(String alasan){
+		this.alasan = alasan;
+	}
+
+	public String getAlasan(){
+		return alasan;
 	}
 
 	public void setIdDetKegiatan(int idDetKegiatan){
@@ -146,6 +157,14 @@ public class Peserta{
 		return id;
 	}
 
+	public void setIdKepanitiaan(int idKepanitiaan){
+		this.idKepanitiaan = idKepanitiaan;
+	}
+
+	public int getIdKepanitiaan(){
+		return idKepanitiaan;
+	}
+
 	public void setTanggalDaftar(String tanggalDaftar){
 		this.tanggalDaftar = tanggalDaftar;
 	}
@@ -162,14 +181,6 @@ public class Peserta{
 		return statusKepanitiaan;
 	}
 
-	public void setDetKegiatan(DetKegiatanItem detKegiatan){
-		this.detKegiatan = detKegiatan;
-	}
-
-	public DetKegiatanItem getDetKegiatan(){
-		return detKegiatan;
-	}
-
 	@Override
  	public String toString(){
 		return 
@@ -183,12 +194,13 @@ public class Peserta{
 			",id_kegiatan = '" + idKegiatan + '\'' + 
 			",sie = '" + sie + '\'' + 
 			",users = '" + users + '\'' + 
+			",alasan = '" + alasan + '\'' + 
 			",id_det_kegiatan = '" + idDetKegiatan + '\'' + 
 			",updated_at = '" + updatedAt + '\'' + 
 			",id = '" + id + '\'' + 
+			",id_kepanitiaan = '" + idKepanitiaan + '\'' + 
 			",tanggal_daftar = '" + tanggalDaftar + '\'' + 
 			",status_kepanitiaan = '" + statusKepanitiaan + '\'' + 
-			",det_kegiatan = '" + detKegiatan + '\'' + 
 			"}";
 		}
 }

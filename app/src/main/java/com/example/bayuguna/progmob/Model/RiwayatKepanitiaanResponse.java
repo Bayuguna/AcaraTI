@@ -5,41 +5,27 @@ import com.google.gson.annotations.SerializedName;
 //@Generated("com.robohorse.robopojogenerator")
 public class RiwayatKepanitiaanResponse{
 
-	@SerializedName("id_det_kegiatan")
-	private int idDetKegiatan;
-
-	@SerializedName("id_users")
-	private int idUsers;
+	@SerializedName("nama")
+	private String nama;
 
 	@SerializedName("id")
 	private int id;
 
-	@SerializedName("tanggal_daftar")
-	private String tanggalDaftar;
+	@SerializedName("tanggal")
+	private String tanggal;
 
-	@SerializedName("status_kepanitiaan")
-	private String statusKepanitiaan;
+	@SerializedName("sie")
+	private String sie;
 
-	@SerializedName("users")
-	private User users;
+	@SerializedName("status")
+	private String status;
 
-//	@SerializedName("det_kegiatan")
-//	private DetKegiatan detKegiatan;
-
-	public void setIdDetKegiatan(int idDetKegiatan){
-		this.idDetKegiatan = idDetKegiatan;
+	public void setNama(String nama){
+		this.nama = nama;
 	}
 
-	public int getIdDetKegiatan(){
-		return idDetKegiatan;
-	}
-
-	public void setIdUsers(int idUsers){
-		this.idUsers = idUsers;
-	}
-
-	public int getIdUsers(){
-		return idUsers;
+	public String getNama(){
+		return nama;
 	}
 
 	public void setId(int id){
@@ -50,49 +36,39 @@ public class RiwayatKepanitiaanResponse{
 		return id;
 	}
 
-	public void setTanggalDaftar(String tanggalDaftar){
-		this.tanggalDaftar = tanggalDaftar;
+	public void setTanggal(String tanggal){
+		this.tanggal = tanggal;
 	}
 
-	public String getTanggalDaftar(){
-		return tanggalDaftar;
+	public String getTanggal(){
+		return tanggal;
 	}
 
-	public void setStatusKepanitiaan(String statusKepanitiaan){
-		this.statusKepanitiaan = statusKepanitiaan;
+	public void setSie(String sie){
+		this.sie = sie;
 	}
 
-	public String getStatusKepanitiaan(){
-		return statusKepanitiaan;
+	public String getSie(){
+		return sie;
 	}
 
-	public void setUsers(User users){
-		this.users = users;
+	public void setStatus(String status){
+		this.status = status;
 	}
 
-	public User getUsers(){
-		return users;
+	public String getStatus(){
+		return status;
 	}
-
-//	public void setDetKegiatan(DetKegiatan detKegiatan){
-//		this.detKegiatan = detKegiatan;
-//	}
-//
-//	public DetKegiatan getDetKegiatan(){
-//		return detKegiatan;
-//	}
 
 	@Override
  	public String toString(){
 		return 
 			"RiwayatKepanitiaanResponse{" + 
-			"id_det_kegiatan = '" + idDetKegiatan + '\'' + 
-			",id_users = '" + idUsers + '\'' + 
+			"nama = '" + nama + '\'' + 
 			",id = '" + id + '\'' + 
-			",tanggal_daftar = '" + tanggalDaftar + '\'' + 
-			",status_kepanitiaan = '" + statusKepanitiaan + '\'' + 
-			",users = '" + users + '\'' + 
-//			",det_kegiatan = '" + detKegiatan + '\'' +
+			",tanggal = '" + tanggal + '\'' + 
+			",sie = '" + sie + '\'' + 
+			",status = '" + status + '\'' + 
 			"}";
 		}
 }

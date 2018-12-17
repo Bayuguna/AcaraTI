@@ -2,6 +2,7 @@ package com.example.bayuguna.progmob.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.bayuguna.progmob.DatabaseHelper;
 import com.example.bayuguna.progmob.Model.User;
 import com.example.bayuguna.progmob.R;
 import com.example.bayuguna.progmob.network.ApiService;
@@ -20,7 +20,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class SignUpActivity extends AppCompatActivity {
-    DatabaseHelper myDb = new DatabaseHelper(this);
+//    DatabaseHelper myDb = new DatabaseHelper(this);
     Button btn_regis;
     EditText insert_nim, insert_nama, insert_username, insert_password,insert_gmail, insert_telp, insert_alamat;
     ApiService service;
@@ -64,16 +64,23 @@ public class SignUpActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
 
+                                SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("token", response.body().getToken());
+                                editor.putString("user_nim", response.body().getNim());
+                                editor.putString("user_status", response.body().getAs());
+                                editor.putString("user_name", response.body().getName());
+                                editor.putString("user_email", response.body().getEmail());
+                                editor.putString("user_telp", response.body().getTelp());
+                                editor.putString("user_alamat", response.body().getAlamat());
+                                editor.putInt("id_user", response.body().getId());
+                                editor.apply();
+
                                 if (insert_nim.getText().toString().isEmpty() && insert_nama.getText().toString().isEmpty() && insert_username.getText().toString().isEmpty() && insert_password.getText().toString().isEmpty()){
                                     Toast.makeText(SignUpActivity.this, "Isi dulu fieldnya",Toast.LENGTH_LONG).show();
                                 }else {
                                     if (response.isSuccessful()){
-                                        Toast.makeText(SignUpActivity.this, "You are Registered",Toast.LENGTH_LONG).show();
-                                        getSharedPreferences("login", Context.MODE_PRIVATE)
-                                                .edit()
-                                                .putString("token", response.body().getToken())
-                                                .apply();
-                                        Intent intent = new Intent(SignUpActivity.this, NavigationActivity.class);
+                                        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                                         startActivity(intent);
 
                                     }else {
